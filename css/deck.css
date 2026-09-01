@@ -364,3 +364,48 @@ body[data-context="invert"] {
 }
 .points em { font-style: normal; color: var(--accent); }
 .points strong { font-weight: var(--weight-bold); color: var(--fg); }
+
+/* --- Diagram: what fits in one session ----------------------------------- */
+/* Two rows. The window box is the same width in both; the repo bar grows.
+   The part of the repo inside the box is the part the session can see. */
+.fit {
+  display: grid;
+  gap: clamp(0.9rem, 2vh, 1.4rem);
+  width: 100%;
+  margin-block: clamp(0.25rem, 1vh, 0.75rem);
+}
+.fit__row {
+  display: grid;
+  grid-template-columns: 9ch 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+.fit__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  color: var(--muted);
+  text-align: right;
+}
+.fit__track { position: relative; height: 26px; }
+.fit__repo {
+  height: 100%;
+  border-radius: 3px;
+  /* --seen is the fraction of THIS bar that sits inside the window box. */
+  background: linear-gradient(90deg, var(--accent) 0 var(--seen), var(--rule-soft) var(--seen) 100%);
+}
+.fit__window {
+  position: absolute;
+  left: -3px; top: -6px; bottom: -6px;
+  width: calc(var(--window) + 6px);
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  pointer-events: none;
+}
+.fit__cap {
+  max-width: none; /* it's a <p>; don't inherit the prose measure */
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  color: var(--muted);
+  padding-left: calc(9ch + 1rem);
+}
+.fit__cap b { color: var(--accent); font-weight: var(--weight-medium); }

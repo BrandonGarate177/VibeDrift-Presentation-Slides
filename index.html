@@ -30,7 +30,54 @@
 </section>
 
 
-<!-- 0:15 — The whole theory, in 30 seconds. They've lived this; don't
+<!-- 0:15 — The mechanism, part one. The picture does most of the work:
+     the box is the same size in both rows, the bar isn't. -->
+<section class="slide" id="window" data-title="What a session sees">
+  <div class="slide__inner">
+    <p class="kicker">How a session actually works</p>
+    <h2 class="h2">The repo isn't in the window.<br>The agent reads what the task points at.</h2>
+    <div class="fit" aria-label="Two repos of different size against the same fixed context window">
+      <div class="fit__row">
+        <span class="fit__label">500 lines</span>
+        <div class="fit__track">
+          <div class="fit__repo" style="width: 5%; --seen: 100%"></div>
+          <div class="fit__window" style="--window: 24%"></div>
+        </div>
+      </div>
+      <div class="fit__row">
+        <span class="fit__label">80,000 lines</span>
+        <div class="fit__track">
+          <div class="fit__repo" style="width: 100%; --seen: 24%"></div>
+          <div class="fit__window" style="--window: 24%"></div>
+        </div>
+      </div>
+      <p class="fit__cap"><b>Box</b> = what fits in one session. Same box, both rows. Not to scale.</p>
+    </div>
+    <ul class="points">
+      <li>The window is finite and your repo isn't in it. The agent opens files on demand, and it opens the ones the task mentions.</li>
+      <li>When the window fills, older context gets summarised. Conventions it inferred are the first thing a summary drops.</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- 0:55 — The mechanism, part two. Why it gets WORSE, not just why it
+     happens. Maxwell presents on agent memory at 7:30; a nod here is fair. -->
+<section class="slide" id="compounds" data-title="Why it compounds">
+  <div class="slide__inner">
+    <p class="kicker">Why the twentieth session is worse than the second</p>
+    <h2 class="h2">Nothing carries over.<br>Every session rebuilds its picture from a smaller slice.</h2>
+    <ul class="points">
+      <li>Session ends, window's gone. The next one starts from zero, or from a summary that kept the task and lost the conventions.</li>
+      <li>The slice is chosen by what looks like the task, not by what set the convention. The file that established "we throw typed errors" isn't in it.</li>
+      <li>Once two ways coexist, the next session sees both and has no basis to choose. Every fork is a new place to fork.</li>
+    </ul>
+    <p class="note">The agent isn't getting dumber. The same policy is running on a shrinking view of a growing repo.</p>
+  </div>
+</section>
+
+
+<!-- 1:30 — The whole theory, in 30 seconds. They've lived this; don't
      explain it to them, just name it. -->
 <section class="slide" id="chasing" data-title="What we're chasing">
   <div class="slide__inner">
@@ -46,7 +93,7 @@
 </section>
 
 
-<!-- 0:45 — What it does, plainly. No adjectives. -->
+<!-- 1:55 — What it does, plainly. No adjectives. -->
 <section class="slide" id="built" data-title="What we built">
   <div class="slide__inner">
     <p class="kicker">What we built</p>
@@ -61,7 +108,7 @@
 </section>
 
 
-<!-- 1:20 — The constraint. It's a rule with a cost, not a slogan. Say the
+<!-- 2:25 — The constraint. It's a rule with a cost, not a slogan. Say the
      second sentence of the lede like you mean it. -->
 <section class="slide slide--accent slide--center" id="baseline" data-title="No finding without a baseline">
   <div class="slide__inner">
@@ -72,7 +119,7 @@
 </section>
 
 
-<!-- 1:50 — The abstract promised MCP. Deliver it, briefly. -->
+<!-- 2:50 — The abstract promised MCP. Deliver it, briefly. -->
 <section class="slide slide--split" id="inloop" data-title="In-loop via MCP">
   <div class="slide__inner">
     <div>
@@ -93,7 +140,7 @@ validate_change(file, contents)
 </section>
 
 
-<!-- 2:30 — DEMO. Run: vibedrift scan . --format terminal   (~20s)
+<!-- 3:20 — DEMO. Run: vibedrift scan . --format terminal   (~20s)
      This slide stays up. Talk through the vote while it runs. -->
 <section class="slide" id="demo" data-title="Live scan">
   <div class="slide__inner">
@@ -110,7 +157,7 @@ validate_change(file, contents)
 </section>
 
 
-<!-- 3:30 — Scroll back up to the score block in the terminal, then this.
+<!-- 4:20 — Scroll back up to the score block in the terminal, then this.
      Point at N/A and say why. Point at the fix plan and say whose rule it is. -->
 <section class="slide" id="score" data-title="Scanning itself">
   <div class="slide__inner">
@@ -131,7 +178,7 @@ validate_change(file, contents)
 </section>
 
 
-<!-- 4:15 — Honesty starts here, not on slide 10. These are ours, filed
+<!-- 5:00 — Honesty starts here, not on slide 10. These are ours, filed
      this week, on the public tracker. -->
 <section class="slide" id="wrong" data-title="What it gets wrong">
   <div class="slide__inner">
@@ -147,7 +194,7 @@ validate_change(file, contents)
 </section>
 
 
-<!-- 5:00 — The pivot. "We don't know" has to sound like you mean it.
+<!-- 5:40 — The pivot. "We don't know" has to sound like you mean it.
      The size line is yours to keep or cut. -->
 <section class="slide" id="experiment" data-title="We don't know">
   <div class="slide__inner">
@@ -161,7 +208,7 @@ validate_change(file, contents)
 </section>
 
 
-<!-- 5:40 — The punchline. Don't rush it. -->
+<!-- 6:15 — The punchline. Don't rush it. -->
 <section class="slide" id="voided" data-title="It voided itself">
   <div class="slide__inner">
     <p class="kicker">Run one</p>
@@ -172,7 +219,7 @@ validate_change(file, contents)
 </section>
 
 
-<!-- 6:20 — The lesson slide. This is the educational part of the talk.
+<!-- 6:50 — The lesson slide. This is the educational part of the talk.
      The blinding line is yours to keep or cut. -->
 <section class="slide" id="taught" data-title="What that taught us">
   <div class="slide__inner">
@@ -187,7 +234,7 @@ validate_change(file, contents)
 </section>
 
 
-<!-- 7:15 — THE ASK. Say it, then stop talking. Leave it up through Q&A. -->
+<!-- 7:25 — THE ASK. Say it, then stop talking. Leave it up through Q&A. -->
 <section class="slide slide--accent slide--center" id="ask" data-title="The ask">
   <div class="slide__inner">
     <p class="kicker">What we actually can't decide</p>
