@@ -93,49 +93,34 @@
 </section>
 
 
-<!-- 1:55 — What it does, plainly. No adjectives. -->
-<section class="slide" id="built" data-title="What we built">
+<!-- 1:55 — Status, not features. The seventeen is the honest number and
+     the point of the slide. -->
+<section class="slide" id="status" data-title="Where we're at">
   <div class="slide__inner">
-    <p class="kicker">What we built</p>
-    <h2 class="h2">It checks your codebase<br>against itself.</h2>
+    <p class="kicker">Where we're at</p>
+    <h2 class="h2">Fourteen detectors.<br>Seventeen scoring formulas.<br>One rule.</h2>
     <ul class="points">
-      <li>Groups files by directory and votes on what each group already does. The winner is the convention.</li>
-      <li>Flags what deviates from that, and points at the line.</li>
-      <li>Runs on your machine. No rulebook, no account, no network for the local scan.</li>
+      <li>It groups files by directory, votes on what each group does, and flags what deviates. That part works and I'll show it in a second.</li>
+      <li>We've rewritten the scoring formula seventeen times. Each time because the previous one turned out to be measuring something else.</li>
+      <li>The one rule: it can't flag anything without a peer group to deviate from. That keeps it honest. It's also why proving it works is hard.</li>
     </ul>
-    <p class="note">That's the whole product. The rest of this is about whether it's any good.</p>
+    <p class="note">The rest of this is about whether it's any good.</p>
   </div>
 </section>
 
 
-<!-- 2:25 — The constraint. It's a rule with a cost, not a slogan. Say the
-     second sentence of the lede like you mean it. -->
-<section class="slide slide--accent slide--center" id="baseline" data-title="No finding without a baseline">
+<!-- 2:40 — The MCP path, as the part we're least sure about. The abstract
+     promised it; deliver it as status with the known hole, not as a feature. -->
+<section class="slide" id="inloop" data-title="In-loop">
   <div class="slide__inner">
-    <p class="kicker">The rule we gave ourselves</p>
-    <h2 class="display">No finding<br>without a baseline.</h2>
-    <p class="lede">It can't flag anything unless there's a peer group to deviate from. That keeps it honest. It also makes it hard to prove it works.</p>
-  </div>
-</section>
-
-
-<!-- 2:50 — The abstract promised MCP. Deliver it, briefly. -->
-<section class="slide slide--split" id="inloop" data-title="In-loop via MCP">
-  <div class="slide__inner">
-    <div>
-      <p class="kicker">Where it runs</p>
-      <h2 class="h2">Before it writes,<br>not after you review.</h2>
-      <p class="lede">An MCP server the agent can ask mid-session. Same baseline as the scan, so the in-loop answer can't disagree with the report.</p>
-    </div>
-    <div>
-      <pre class="code"><code>claude mcp add vibedrift \
-  -- npx -y @vibedrift/cli mcp
-
-# agent, mid-edit:
-validate_change(file, contents)
-  → fits: true | false | null</code></pre>
-      <p class="note">Three answers. <code>null</code> means we're not sure, and we'd rather say that than guess.</p>
-    </div>
+    <p class="kicker">The part we're least sure about</p>
+    <h2 class="h2">The agent can ask before it writes.<br>We don't know yet if that changes anything.</h2>
+    <pre class="code"><code>validate_change(file, contents)
+  → fits: true | false | null     <span class="n"># null = unsure, and unsure never blesses</span></code></pre>
+    <ul class="points">
+      <li>It answers from the baseline the last scan built. It doesn't rebuild, because a rebuild is 3 to 8 seconds and the agent won't wait.</li>
+      <li>So a file the agent created <em>this session</em> is invisible to the check. That's a hole. We know about it. We haven't fixed it.</li>
+    </ul>
   </div>
 </section>
 
@@ -256,7 +241,7 @@ validate_change(file, contents)
     </ul>
     <hr class="rule">
     <p class="note">
-      github.com/VibeDrift/VibeDrift · vibedrift.ai · 56 stars<br>
+      github.com/VibeDrift/VibeDrift · vibedrift.ai<br>
       Brandon Garate · linkedin.com/in/brandongarate177
     </p>
   </div>
