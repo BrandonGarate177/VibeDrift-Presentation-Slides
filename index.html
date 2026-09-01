@@ -85,9 +85,8 @@
     <h2 class="h1">Everything compiles.<br>Everything passes review.</h2>
     <p class="lede">Every fresh session starts with no memory of what your codebase already settled on. So it makes reasonable choices that aren't <em>your</em> choices.</p>
     <ul class="points">
-      <li>One handler throws a typed error. The next returns a plain object.</li>
-      <li>Eight services go through the repository layer. The ninth reaches for raw SQL.</li>
-      <li>Nobody notices until the third one.</li>
+      <li>One handler throws a typed error. The next might return a plain object.</li>
+      <li>Eight services go through the repository layer. The ninth on could reach for raw SQL.</li>
     </ul>
   </div>
 </section>
@@ -100,14 +99,12 @@
     <h2 class="h2">VibeDrift is a governance layer for coding agents. It learns what your repo already does and holds the agent to it.</h2>
     <div class="stat-row stat-row--compact">
       <div class="stat"><div class="stat__value">56</div><div class="stat__label">GitHub stars</div></div>
-      <div class="stat"><div class="stat__value">~40</div><div class="stat__label">active on free</div></div>
+      <div class="stat"><div class="stat__value">~45</div><div class="stat__label">active on free</div></div>
       <div class="stat"><div class="stat__value">1</div><div class="stat__label">paying</div></div>
-      <div class="stat"><div class="stat__value">17</div><div class="stat__label">scoring formulas so far</div></div>
     </div>
     <ul class="points">
       <li>Fourteen detectors group files by directory, vote on what each group does, and flag what deviates. That part works and I'll show it in a second.</li>
-      <li>Seventeen scoring formulas because the previous sixteen each turned out to be measuring something else.</li>
-      <li>One rule: no finding without a peer group to deviate from. It keeps the tool honest. It also makes it hard to prove it works.</li>
+      <li>One rule: no finding without a peer group to deviate from. It keeps the tool honest.</li>
     </ul>
   </div>
 </section>
@@ -121,8 +118,7 @@
     <h2 class="h2">The tool, scanning its own repo.</h2>
     <pre class="code code--cmd"><code id="cmd"><span class="prompt">$ </span>vibedrift scan . --format terminal</code><button class="copy" type="button" data-copy="#cmd" aria-label="Copy command">copy</button></pre>
     <ul class="points">
-      <li>Runs entirely on this laptop. No account, no network. About twenty seconds on 80,000 lines of TypeScript.</li>
-      <li>It's our own repo because that's the one we can't hide behind. If it's wrong about us, you'll see it.</li>
+      <li>Runs locally on 80,000 lines of TypeScript.</li>
     </ul>
   </div>
 </section>
@@ -182,8 +178,8 @@
      just what it does. -->
 <section class="slide" id="wrong" data-title="What's broken">
   <div class="slide__inner">
-    <p class="kicker">What's broken in the tool</p>
-    <h2 class="h2">Two of the twelve open bugs,<br>and why they matter to us.</h2>
+    <p class="kicker">What's broke recently</p>
+    <h2 class="h2">Two of the twelve open bugs</h2>
     <ul class="points">
       <li><strong>#110.</strong> One long line and it drops the whole file, silently. A tool that measures your code can't be allowed to fail without saying so. This one did, and it took our experiment with it.</li>
       <li><strong>#112.</strong> Signed-in scans upload raw source snippets, and the telemetry opt-out doesn't cover it. We said local-first. This isn't.</li>
