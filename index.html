@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Untitled talk</title>
+  <meta name="description" content="Talk deck.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%8E%A4</text></svg>">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/deck.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       SLIDES
+       Each <section class="slide"> is one full screen. Add, remove and
+       reorder freely: the rail, counter and keyboard nav all read from the
+       DOM, so nothing else needs updating.
+
+       Variants (combine as needed):
+         slide--center   centred text
+         slide--split    two columns, collapses under 900px
+         slide--accent   accent background
+         slide--invert   dark panel
+         slide--raised   subtly lighter panel
+       ====================================================================== -->
+
+  <section class="slide slide--center" id="title" data-title="Title">
+    <div class="slide__inner">
+      <p class="kicker">Placeholder deck</p>
+      <h1 class="display">Title goes here</h1>
+      <p class="lede">One line that tells the room what they are about to get.</p>
+      <p class="note">Brandon Garate · Event name · 1 September 2026</p>
+    </div>
+  </section>
+
+  <section class="slide" id="statement" data-title="Big statement">
+    <div class="slide__inner">
+      <p class="kicker">Layout: statement</p>
+      <h2 class="h1">A single sentence, set large, is the strongest slide you can build.</h2>
+      <hr class="rule">
+      <p class="note">Say the rest out loud. The screen is for the one idea.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="points" data-title="Points">
+    <div class="slide__inner">
+      <p class="kicker">Layout: points</p>
+      <h2 class="h2">Three or four points, never more</h2>
+      <ul class="points">
+        <li>Each line is a thing you will say, not a thing they will read.</li>
+        <li>If a bullet needs a sub-bullet, it is two slides.</li>
+        <li>Numbers beat adjectives every time.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide slide--split" id="split" data-title="Split">
+    <div class="slide__inner">
+      <div>
+        <p class="kicker">Layout: split</p>
+        <h2 class="h2">Text on the left, evidence on the right</h2>
+        <p class="lede">Good for a claim next to the screenshot, chart or code that backs it.</p>
+      </div>
+      <div>
+        <pre class="code"><code>$ npx @vibedrift/cli .
+
+  Vibe Drift Score   92 / A
+  13 categories      4 with findings</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide--invert slide--center" id="stats" data-title="Numbers">
+    <div class="slide__inner">
+      <p class="kicker">Layout: numbers</p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat__value">3&times;</div>
+          <div class="stat__label">Placeholder metric</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">12s</div>
+          <div class="stat__label">Placeholder metric</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">98.7%</div>
+          <div class="stat__label">Placeholder metric</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide slide--accent slide--center" id="turn" data-title="Turn">
+    <div class="slide__inner">
+      <h2 class="h1">The accent slide is the hinge.</h2>
+      <p class="lede">Use it once or twice, where the argument turns.</p>
+    </div>
+  </section>
+
+  <section class="slide slide--center" id="end" data-title="End">
+    <div class="slide__inner">
+      <h2 class="h1">Thanks</h2>
+      <p class="lede">Where to find you. One link, said out loud.</p>
+      <p class="note">github.com/BrandonGarate177</p>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       CHROME — generated from the slides above. Leave as is.
+       ====================================================================== -->
+
+  <nav class="rail" aria-label="Slides"></nav>
+
+  <div class="counter" aria-hidden="true">
+    <span data-counter-now>01</span> / <span data-counter-total>00</span>
+  </div>
+
+  <p class="visually-hidden" role="status" aria-live="polite" data-live></p>
+
+  <script src="js/deck.js" defer></script>
+</body>
+</html>

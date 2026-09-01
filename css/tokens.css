@@ -1,0 +1,87 @@
+/* ==========================================================================
+   tokens.css — every knob for the deck's appearance lives here.
+   Edit this file to restyle the whole thing. Nothing here is structural.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* --- Canvas ----------------------------------------------------------- */
+  --bg:        #f6f5f1;
+  --bg-raised: #ffffff;
+  --fg:        #14130f;
+  --muted:     #6d6a61;
+  --rule:      #dcd8ce;
+
+  /* --- Accent ----------------------------------------------------------- */
+  --accent:      #b8420f;
+  --accent-ink:  #fffaf7;
+  --accent-soft: #f8e6dc;
+
+  /* --- Inverted panels (.slide--invert) --------------------------------- */
+  --inv-bg:    #14130f;
+  --inv-fg:    #f6f5f1;
+  --inv-muted: #928d81;
+  --inv-rule:  #322f27;
+
+  /* --- Type ------------------------------------------------------------- */
+  /* System stack on purpose: zero network requests, so the deck renders
+     identically with the venue wifi down. Swap in a webfont if you want. */
+  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --t-display: clamp(3rem, 8.5vw, 7.5rem);
+  --t-1:       clamp(2.25rem, 5.5vw, 4.5rem);
+  --t-2:       clamp(1.6rem, 3.4vw, 2.75rem);
+  --t-3:       clamp(1.2rem, 2vw, 1.75rem);
+  --t-body:    clamp(1.05rem, 1.65vw, 1.5rem);
+  --t-small:   clamp(0.8rem, 1vw, 0.95rem);
+
+  --lh-tight: 1.03;
+  --lh-snug:  1.18;
+  --lh-body:  1.5;
+
+  --tracking-tight: -0.022em;
+  --tracking-kicker: 0.14em;
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-bold:   700;
+
+  /* --- Space ------------------------------------------------------------ */
+  --pad-x: clamp(1.5rem, 7vw, 9rem);
+  --pad-y: clamp(2rem, 7vh, 5rem);
+  --gap:   clamp(1rem, 2.5vh, 2rem);
+  --measure: 34ch;
+  --content-max: 1240px;
+
+  /* --- Chrome (rail, counter) ------------------------------------------- */
+  --rail-inset: clamp(0.75rem, 2vw, 1.75rem);
+  --dot-size: 7px;
+  --dot-size-active: 7px;
+  --radius: 10px;
+
+  --dur: 420ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Dark theme. Toggle live with the `t` key. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg:        #100f0c;
+  --bg-raised: #1a1915;
+  --fg:        #f2f0ea;
+  --muted:     #8f8b80;
+  --rule:      #2e2b24;
+
+  --accent:      #ff7a45;
+  --accent-ink:  #17130f;
+  --accent-soft: #2b1a12;
+
+  --inv-bg:    #f2f0ea;
+  --inv-fg:    #100f0c;
+  --inv-muted: #63605a;
+  --inv-rule:  #d3cfc5;
+}
