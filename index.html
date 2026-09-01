@@ -23,70 +23,78 @@
 <section class="slide" id="title" data-title="Title">
   <div class="slide__inner">
     <p class="kicker">San Diego AI Showcase · 1 Sep 2026</p>
-    <h1 class="display">Why your coding agent<br>gets worse as the<br>project grows</h1>
+    <h1 class="display">Why AI agents<br>get worse as the<br>project grows</h1>
     <hr class="rule">
     <p class="note">Brandon Garate · VibeDrift · github.com/VibeDrift/VibeDrift</p>
   </div>
 </section>
 
 
-<!-- 0:15 — Their war story, not yours. Ask for hands: "who has had an agent
-     rewrite a helper you already had?" Wait for the hands. -->
-<section class="slide" id="problem" data-title="The problem">
+<!-- 0:15 — The README's own sentence. Say it, then let the examples land. -->
+<section class="slide" id="problem" data-title="Reasonable choices">
   <div class="slide__inner">
-    <p class="kicker">The thing you've all hit</p>
-    <h2 class="h1">Your agent writes a function<br>you already have.</h2>
-    <p class="lede">Second one is in a different folder, named differently, doing the same job. Nobody notices until the third one shows up.</p>
-  </div>
-</section>
-
-
-<!-- 0:45 — The mechanism. Don't say "context window" and move on; say why
-     that produces THIS failure specifically. -->
-<section class="slide" id="blind" data-title="Every session starts blind">
-  <div class="slide__inner">
-    <p class="kicker">Why it happens</p>
-    <h2 class="h2">Every session starts blind.</h2>
+    <p class="kicker">The mechanism</p>
+    <h2 class="h1">It makes reasonable choices<br>that are not <em>your</em> choices.</h2>
+    <p class="lede">Every fresh session starts with no memory of the conventions your codebase already settled on.</p>
     <ul class="points">
-      <li>The agent sees the files it opened, not the repo.</li>
-      <li>It has no memory of the conventions the last twenty sessions established.</li>
-      <li>So it does the reasonable thing: it writes fresh code that works.</li>
-      <li>Each one is defensible. The twentieth one is a mess.</li>
+      <li>One handler throws a typed error. The next returns a plain object.</li>
+      <li>Eight services go through the repository layer. The ninth reaches for raw SQL.</li>
+      <li>Everything compiles. Everything passes review.</li>
     </ul>
-    <p class="note">This gets worse as the repo grows, because the fraction the agent can see keeps shrinking.</p>
   </div>
 </section>
 
 
-<!-- 1:30 — THE IDEA. Slow down. This is the one thing to land. -->
+<!-- 0:50 — The specific reason it scales badly. Two compounding effects,
+     then why the existing tools don't see it. This is the educational beat. -->
+<section class="slide" id="compounds" data-title="Why it compounds">
+  <div class="slide__inner">
+    <p class="kicker">Why the twentieth session is worse than the second</p>
+    <h2 class="h2">The agent isn't getting dumber.<br>Its view of the repo is shrinking.</h2>
+    <ul class="points">
+      <li>At 500 lines it sees everything. At 80,000 it sees a slice, chosen by what looks like the task, not by what set the convention.</li>
+      <li>Once two ways coexist, the next session sees both and has no reason to prefer either. Every fork is a new place to fork.</li>
+      <li>A linter checks one file against a rulebook. A reviewer checks whether the diff works. Neither checks the codebase against <em>itself</em>.</li>
+    </ul>
+    <p class="note">That gap is what we call drift. It is always relative to a baseline the repo itself established.</p>
+  </div>
+</section>
+
+
+<!-- 1:40 — THE IDEA. Slow down. This is the one thing to land. -->
 <section class="slide slide--accent slide--center" id="baseline" data-title="No finding without a baseline">
   <div class="slide__inner">
     <p class="kicker">The core idea</p>
     <h2 class="display">No finding<br>without a baseline.</h2>
-    <p class="lede">Drift is a deviation from a peer group. If there's no group, there's no finding.</p>
+    <p class="lede">A peer group is a precondition, not a nice-to-have. No baseline, no finding.</p>
   </div>
 </section>
 
 
-<!-- 2:15 — The honest constraint that falls out of it. This is where the
-     room decides whether you're selling or thinking. -->
-<section class="slide" id="deviation" data-title="Deviation, not quality">
+<!-- 2:20 — The rules. These are lifted from the handbook, not invented for
+     the talk. Read them as constraints you chose, not features. -->
+<section class="slide" id="rules" data-title="The rules">
   <div class="slide__inner">
-    <p class="kicker">What that costs us</p>
-    <h2 class="h2">We can't tell you your code is bad.<br>Only that it disagrees with itself.</h2>
-    <p class="lede">There's no rule list. We don't know if you should use tabs. We know that 440 files here use PascalCase and 72 don't, and that the 72 are the ones the agent wrote last week.</p>
-    <p class="note">It's not a quality score. It's a consistency score. Those are different products and we keep having to say so.</p>
+    <p class="kicker">The rules we hold ourselves to</p>
+    <h2 class="h2">Drift, not quality.</h2>
+    <ul class="points">
+      <li><strong>One measurement.</strong> How far a repo has drifted from its own dominant conventions. Not a quality score. Not a debt score.</li>
+      <li><strong>Honesty over confidence.</strong> When it isn't sure it hedges or stays silent. Nothing to measure earns an N/A, not a free 20.</li>
+      <li><strong>Never false-bless.</strong> It may over-flag. It must never mark an unauthenticated route as authenticated.</li>
+      <li><strong>Consistent does not mean safe.</strong> Printed under the security bar, every scan.</li>
+    </ul>
+    <p class="note">The test every change has to pass: does this make us measure drift more accurately, or more confidently?</p>
   </div>
 </section>
 
 
-<!-- 2:45 — Why in-loop matters. The abstract promised MCP, deliver it. -->
+<!-- 3:00 — Why in-loop matters. The abstract promised MCP, deliver it. -->
 <section class="slide slide--split" id="inloop" data-title="In-loop via MCP">
   <div class="slide__inner">
     <div>
       <p class="kicker">Where it runs</p>
       <h2 class="h2">Before it writes,<br>not after you review.</h2>
-      <p class="lede">An MCP server the agent can call mid-session. Same classifier as the batch scan, so the answer in-loop can't contradict the answer in the report.</p>
+      <p class="lede">An MCP server the agent calls mid-session. It answers from the same baseline the batch scan built, so the in-loop verdict can't contradict the report.</p>
     </div>
     <div>
       <pre class="code"><code>claude mcp add vibedrift \
@@ -95,13 +103,13 @@
 # agent, mid-edit:
 validate_change(file, contents)
   → fits: true | false | null</code></pre>
-      <p class="note">Three states, not two. <code>null</code> means we don't know, and we'd rather say that than guess.</p>
+      <p class="note">Three states, not two. <code>null</code> means unsure, and unsure never blesses.</p>
     </div>
   </div>
 </section>
 
 
-<!-- 3:30 — DEMO. Run: vibedrift scan . --format terminal
+<!-- 3:40 — DEMO. Run: vibedrift scan . --format terminal
      Takes ~20s. This slide stays up. Narrate the mechanism while it runs. -->
 <section class="slide" id="demo" data-title="Live scan">
   <div class="slide__inner">
@@ -118,7 +126,7 @@ validate_change(file, contents)
 </section>
 
 
-<!-- 4:15 — Scroll back up to the score block in the terminal, then this. -->
+<!-- 4:25 — Scroll back up to the score block in the terminal, then this. -->
 <section class="slide" id="score" data-title="Scanning itself">
   <div class="slide__inner">
     <p class="kicker">VibeDrift, scanning VibeDrift</p>

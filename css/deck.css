@@ -348,3 +348,19 @@ body[data-context="invert"] {
 .bar-on  { color: var(--accent); }
 .bar-off { color: var(--dim); }
 .code .n { color: var(--info); }
+
+/* --- Emphasis in headings ------------------------------------------------ */
+/* The display face ships no italic, so <em> would be a synthesised slant.
+   Colour carries the emphasis instead, and stays legible from the back. */
+.display em, .h1 em, .h2 em, .h3 em {
+  font-style: normal;
+  color: var(--accent);
+}
+.slide--accent :is(.display, .h1, .h2, .h3) em {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.08em;
+}
+.points em { font-style: normal; color: var(--accent); }
+.points strong { font-weight: var(--weight-bold); color: var(--fg); }

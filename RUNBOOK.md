@@ -46,17 +46,17 @@ API with a 90-second timeout, and degrades silently on failure.
 | Time | Slide | Beat |
 | --- | --- | --- |
 | 0:00 | 1 | Say the title line out loud before they read it |
-| 0:15 | 2 | Ask for hands: who's had an agent rewrite a helper you already had |
-| 0:45 | 3 | Why: every session starts blind |
-| 1:30 | 4 | **No finding without a baseline.** Slow down here |
-| 2:15 | 5 | So we measure deviation, not quality |
-| 2:45 | 6 | In-loop via MCP |
-| 3:30 | 7 | **Start the scan.** Talk through the mechanism |
-| 4:15 | 8 | Scroll back, read the score |
-| 5:00 | 9 | It flags us for breaking our own written rule |
-| 5:45 | 10 | Twelve open bugs, ours, public |
-| 6:30 | 11 | **The experiment voided itself.** Don't rush it |
-| 7:15 | 12 | **The ask.** Say it, then stop talking |
+| 0:15 | 2 | "Reasonable choices that are not *your* choices." Let the three examples land |
+| 0:50 | 3 | Why it compounds. Shrinking view, forks breed forks, nothing checks the repo against itself |
+| 1:40 | 4 | **No finding without a baseline.** Slow down here |
+| 2:20 | 5 | The rules. Read them as constraints you chose, not features |
+| 3:00 | 6 | In-loop via MCP. Unsure never blesses |
+| 3:40 | 7 | **Start the scan.** Talk through the mechanism |
+| 4:25 | 8 | Scroll back, read the score |
+| 5:05 | 9 | It flags us for breaking our own written rule |
+| 5:50 | 10 | Twelve open bugs, ours, public |
+| 6:35 | 11 | **The experiment voided itself.** Don't rush it |
+| 7:20 | 12 | **The ask.** Say it, then stop talking |
 | — | 13 | Leave up during Q&A and afterwards |
 
 ## Things you'll get asked, and the honest answer
