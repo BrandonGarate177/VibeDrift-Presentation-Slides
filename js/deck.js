@@ -105,6 +105,8 @@
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const tag = document.activeElement?.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA") return;
+    // A focused button (rail dot, copy) owns Space and Enter; arrows still navigate.
+    if (tag === "BUTTON" && (e.key === " " || e.key === "Spacebar" || e.key === "Enter")) return;
 
     if (NEXT.has(e.key)) {
       e.preventDefault();
@@ -161,6 +163,23 @@
       });
     }
   }
+
+  /* --- Copy buttons ------------------------------------------------------- */
+
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    const target = document.querySelector(btn.dataset.copy);
+    if (!target) return;
+    btn.addEventListener("click", async () => {
+      const text = target.textContent.replace(/^\$\s*/gm, "").trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "copied";
+      } catch {
+        btn.textContent = "select it";
+      }
+      setTimeout(() => { btn.textContent = "copy"; }, 1400);
+    });
+  });
 
   /* --- Land on the deep-linked slide on load ------------------------------ */
 

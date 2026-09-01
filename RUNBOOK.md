@@ -12,21 +12,22 @@ of content, not 10. The squeeze lands on whoever isn't first.
 
 ## The demo
 
-In the `VibeDrift/` checkout, on slide 7:
+Slide 6 has the command with a copy button. In the `VibeDrift/` checkout:
 
 ```bash
 vibedrift scan . --format terminal
 ```
 
-Takes about 20 seconds. Slide 7 is what you talk through while it runs: directory
-grouping, the 70% threshold, recency weighting. Don't fill the silence with
-apologies for the silence.
+About 20 seconds. Advance to slide 7 while it runs and talk through the vote.
+It prints **583 lines**, so when it finishes, **scroll the terminal back up to
+the score block** and read it out. Point at `N/A` on security and say why.
+Point at the top fix-plan item and say whose AGENTS.md it's contradicting.
 
-It prints **583 lines**, so the score block scrolls off the top. **Scroll back up
-to it** before you start talking about the number.
+If the scan fails or the laptop misbehaves, the same output is in the repo:
 
-If it fails or the laptop misbehaves: slide 8 already has the real output on it.
-Keep going, don't debug on stage.
+```bash
+cat demo/scan-output.txt | head -45
+```
 
 Deep scan is deliberately **not** in this talk. It needs an account, hits a hosted
 API with a 90-second timeout, and degrades silently on failure.
@@ -47,26 +48,26 @@ API with a 90-second timeout, and degrades silently on failure.
 | --- | --- | --- |
 | 0:00 | 1 | Say the title line out loud before they read it |
 | 0:15 | 2 | **The window.** Point at the diagram: same box, both rows. The repo grew, the box didn't |
-| 0:55 | 3 | Why it compounds. Nothing carries over; the slice is task-shaped; forks breed forks. Nod to Maxwell's memory talk at 7:30 if you like |
+| 0:55 | 3 | Why it compounds. Nothing carries over; the slice is task-shaped; forks breed forks |
 | 1:30 | 4 | "Everything compiles, everything passes review." Name it, don't explain it |
-| 1:55 | 5 | **Where we're at.** Seventeen scoring formulas is the point of the slide. Say it plainly |
-| 2:40 | 6 | The in-loop path, as the part you're least sure about. Say the hole out loud |
-| 3:20 | 7 | **Start the scan.** Talk through the vote while it runs |
-| 4:20 | 8 | Scroll back. Point at N/A, point at the AGENTS.md finding |
-| 5:00 | 9 | Twelve open bugs, ours. Two fail silently |
-| 5:40 | 10 | "We don't know if it works." Mean it. Then the experiment design |
-| 6:15 | 11 | **It voided itself.** Don't rush |
-| 6:50 | 12 | Three things we got wrong. This is the educational part |
-| 7:25 | 13 | **The ask.** Say it, then stop talking |
-| — | 14 | Leave up during Q&A and afterwards |
+| 1:55 | 5 | **Where we're at.** Introduce it by name. Read the four numbers as they are, including the 1 |
+| 2:40 | 6 | The command. Say what it is and why this repo. Then hit enter |
+| 3:00 | 7 | **It's running.** Talk through the vote. Then scroll the terminal back and read the score |
+| 4:30 | 8 | The experiment, as designed. Intent only; next slide is what happened |
+| 5:15 | 9 | **What went wrong running it.** Three things, don't soften them. The 63 is real |
+| 6:10 | 10 | Two bugs. Say why each matters to you, not just what it does |
+| 7:00 | 11 | **The ask.** Say it, then stop talking |
+| — | 12 | Leave up during Q&A and afterwards |
 
-## Two lines that are yours to cut
+## Lines that are yours to cut
 
-Both are true and both are what this event asked for. Neither cites a private
-document. Delete the `<li>` in `index.html` if you'd rather not say it out loud.
+These are true and they're what this event asked for. They come from a private
+repo. Delete the `<li>` in `index.html` if you'd rather not say one out loud.
 
-- Slide 10: "We can't rule out that the score is partly measuring repo size."
-- Slide 12: "Our control group read a design doc that told it it was the control."
+- Slide 9: the control-group-wasn't-blind line, the retraction, and the 63 numbered
+  harness flaws. All three come from the experiment repo's own findings docs
+  (`BLINDING-INTEGRITY-FINDINGS.md`, `FORMWORK-RUN-1-FINDINGS.md`, `GAPS.md`).
+  They're methodology, not numbers, and they're what this event asked for.
 
 ## Things you'll get asked, and the honest answer
 

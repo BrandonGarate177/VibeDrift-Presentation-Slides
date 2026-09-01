@@ -409,3 +409,32 @@ body[data-context="invert"] {
   padding-left: calc(9ch + 1rem);
 }
 .fit__cap b { color: var(--accent); font-weight: var(--weight-medium); }
+
+/* --- Copy button on a code block ------------------------------------------ */
+.code { position: relative; }
+.copy {
+  position: absolute;
+  top: 0.6rem; right: 0.6rem;
+  appearance: none;
+  border: 1px solid var(--code-rule);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  padding: 0.25em 0.7em;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.copy:hover { color: var(--fg); border-color: var(--rule-soft); }
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* A big command, meant to be read from the back and copied from the front. */
+.code--cmd {
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  padding-right: 6rem;
+}
+.code--cmd .prompt { color: var(--dim); user-select: none; }
+
+/* Stat row that isn't a hero moment. */
+.stat-row--compact .stat__value { font-size: var(--t-2); }
+.stat-row--compact { gap: clamp(1rem, 3vw, 2.5rem); }

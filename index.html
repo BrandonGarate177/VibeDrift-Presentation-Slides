@@ -93,41 +93,45 @@
 </section>
 
 
-<!-- 1:55 — Status, not features. The seventeen is the honest number and
-     the point of the slide. -->
+<!-- 1:55 — Introduce it by name, then the numbers as they are. -->
 <section class="slide" id="status" data-title="Where we're at">
   <div class="slide__inner">
     <p class="kicker">Where we're at</p>
-    <h2 class="h2">Fourteen detectors.<br>Seventeen scoring formulas.<br>One rule.</h2>
+    <h2 class="h2">VibeDrift is a governance layer for coding agents. It learns what your repo already does and holds the agent to it.</h2>
+    <div class="stat-row stat-row--compact">
+      <div class="stat"><div class="stat__value">56</div><div class="stat__label">GitHub stars</div></div>
+      <div class="stat"><div class="stat__value">~40</div><div class="stat__label">active on free</div></div>
+      <div class="stat"><div class="stat__value">1</div><div class="stat__label">paying</div></div>
+      <div class="stat"><div class="stat__value">17</div><div class="stat__label">scoring formulas so far</div></div>
+    </div>
     <ul class="points">
-      <li>It groups files by directory, votes on what each group does, and flags what deviates. That part works and I'll show it in a second.</li>
-      <li>We've rewritten the scoring formula seventeen times. Each time because the previous one turned out to be measuring something else.</li>
-      <li>The one rule: it can't flag anything without a peer group to deviate from. That keeps it honest. It's also why proving it works is hard.</li>
+      <li>Fourteen detectors group files by directory, vote on what each group does, and flag what deviates. That part works and I'll show it in a second.</li>
+      <li>Seventeen scoring formulas because the previous sixteen each turned out to be measuring something else.</li>
+      <li>One rule: no finding without a peer group to deviate from. It keeps the tool honest. It also makes it hard to prove it works.</li>
     </ul>
-    <p class="note">The rest of this is about whether it's any good.</p>
   </div>
 </section>
 
 
-<!-- 2:40 — The MCP path, as the part we're least sure about. The abstract
-     promised it; deliver it as status with the known hole, not as a feature. -->
-<section class="slide" id="inloop" data-title="In-loop">
+<!-- 2:40 — The command, big enough to read and with a copy button. Say
+     what it is and why this repo before you hit enter. -->
+<section class="slide" id="run" data-title="What we're about to run">
   <div class="slide__inner">
-    <p class="kicker">The part we're least sure about</p>
-    <h2 class="h2">The agent can ask before it writes.<br>We don't know yet if that changes anything.</h2>
-    <pre class="code"><code>validate_change(file, contents)
-  → fits: true | false | null     <span class="n"># null = unsure, and unsure never blesses</span></code></pre>
+    <p class="kicker">What we're about to run</p>
+    <h2 class="h2">The tool, scanning its own repo.</h2>
+    <pre class="code code--cmd"><code id="cmd"><span class="prompt">$ </span>vibedrift scan . --format terminal</code><button class="copy" type="button" data-copy="#cmd" aria-label="Copy command">copy</button></pre>
     <ul class="points">
-      <li>It answers from the baseline the last scan built. It doesn't rebuild, because a rebuild is 3 to 8 seconds and the agent won't wait.</li>
-      <li>So a file the agent created <em>this session</em> is invisible to the check. That's a hole. We know about it. We haven't fixed it.</li>
+      <li>Runs entirely on this laptop. No account, no network. About twenty seconds on 80,000 lines of TypeScript.</li>
+      <li>It's our own repo because that's the one we can't hide behind. If it's wrong about us, you'll see it.</li>
     </ul>
   </div>
 </section>
 
 
-<!-- 3:20 — DEMO. Run: vibedrift scan . --format terminal   (~20s)
-     This slide stays up. Talk through the vote while it runs. -->
-<section class="slide" id="demo" data-title="Live scan">
+<!-- 3:00 — Hit enter. This slide stays up while it runs. Talk through the
+     vote. When it finishes, scroll the terminal back to the score block and
+     read it out. Then come back to the deck. -->
+<section class="slide" id="demo" data-title="Running">
   <div class="slide__inner">
     <p class="kicker">Running now · ~20 seconds</p>
     <h2 class="h2">What it's doing<br>while we wait</h2>
@@ -142,102 +146,71 @@
 </section>
 
 
-<!-- 4:20 — Scroll back up to the score block in the terminal, then this.
-     Point at N/A and say why. Point at the fix plan and say whose rule it is. -->
-<section class="slide" id="score" data-title="Scanning itself">
+<!-- 4:30 — The experiment, as designed. Describe the intent; the next
+     slide is what actually happened. -->
+<section class="slide" id="experiment" data-title="The experiment">
   <div class="slide__inner">
-    <p class="kicker">VibeDrift, scanning VibeDrift</p>
-    <pre class="code"><code>Files: 411 (JS: 7, TS: 404) | Lines: 80,965 | Time: 19.7s
-
-  Architectural Consistency    <span class="n">14/20</span>  <span class="bar-on">██████████████</span><span class="bar-off">░░░░░░</span>
-  Redundancy                   <span class="n">20/20</span>  <span class="bar-on">████████████████████</span>
-  Security Consistency           <span class="n">N/A</span> — nothing to measure here
-  Intent Clarity               <span class="n">19/20</span>  <span class="bar-on">███████████████████</span><span class="bar-off">░</span>
-
-  Vibe Drift Score:            <span class="n">86/100</span>   (over 3 of 4 categories)
-
-  1. type naming oscillates: 440 PascalCase, 72 other   <span class="n">[declared divergence]</span>
-     → contradicts AGENTS.md:69</code></pre>
-    <p class="note">Security is N/A because there was nothing to measure and we told it not to guess. The top finding is us contradicting our own AGENTS.md.</p>
-  </div>
-</section>
-
-
-<!-- 5:00 — Honesty starts here, not on slide 10. These are ours, filed
-     this week, on the public tracker. -->
-<section class="slide" id="wrong" data-title="What it gets wrong">
-  <div class="slide__inner">
-    <p class="kicker">What it gets wrong</p>
-    <h2 class="h2">Twelve open bugs, ours,<br>on the public tracker.</h2>
+    <p class="kicker">The experiment</p>
+    <h2 class="h2">Same spec, built twice.</h2>
     <ul class="points">
-      <li><strong>#110</strong> — one long line makes it drop the whole file, and record nothing when it does.</li>
-      <li><strong>#112</strong> — signed-in scans upload raw source snippets. The telemetry opt-out doesn't cover it.</li>
-      <li><strong>#118</strong> — sessions silently stop checking past 2,000 functions.</li>
-    </ul>
-    <p class="note">github.com/VibeDrift/VibeDrift/issues · two of those three fail silently, which is the worst way to fail.</p>
-  </div>
-</section>
-
-
-<!-- 5:40 — The pivot. "We don't know" has to sound like you mean it.
-     The size line is yours to keep or cut. -->
-<section class="slide" id="experiment" data-title="We don't know">
-  <div class="slide__inner">
-    <p class="kicker">What we don't know</p>
-    <h2 class="h1">Does any of it work?</h2>
-    <ul class="points">
-      <li>We can't rule out that the score is partly measuring repo size rather than drift.</li>
-      <li>So we built an experiment. Same spec built twice: one track with the tool in the agent's loop, one without. Fresh session every sprint. Protocol written and signed off before we ran anything.</li>
+      <li>Track V has the tool in the agent's loop. Track C doesn't, and isn't supposed to know it exists.</li>
+      <li>Every sprint is a fresh session with no memory of the last one. That's the condition from slide 3, on purpose.</li>
+      <li>Acceptance tests written from the spec by agents that never saw either codebase. Protocol signed off before sprint zero.</li>
+      <li>Per sprint, both tracks: duplication, lint errors, circular deps, unguarded routes, and our own score. Re-derived from raw tool output, never from either track's self-report.</li>
     </ul>
   </div>
 </section>
 
 
-<!-- 6:15 — The punchline. Don't rush it. -->
-<section class="slide" id="voided" data-title="It voided itself">
+<!-- 5:15 — What actually happened. All three are in the experiment repo's
+     own findings docs. Don't soften them. -->
+<section class="slide" id="failures" data-title="What went wrong running it">
   <div class="slide__inner">
-    <p class="kicker">Run one</p>
-    <h2 class="h1">The experiment found a bug in the tool, and the bug corrupted the measurement.</h2>
-    <p class="lede">That's #110. It was silently dropping files from the codebases we were measuring. Run one is void.</p>
-    <p class="note">The fix is on a branch. No PR yet. Run two is going as I stand here.</p>
-  </div>
-</section>
-
-
-<!-- 6:50 — The lesson slide. This is the educational part of the talk.
-     The blinding line is yours to keep or cut. -->
-<section class="slide" id="taught" data-title="What that taught us">
-  <div class="slide__inner">
-    <p class="kicker">What that taught us</p>
-    <h2 class="h2">Three things we got wrong.</h2>
+    <p class="kicker">What went wrong running it</p>
+    <h2 class="h2">Run one is void. Here's how.</h2>
     <ul class="points">
-      <li>The thing measuring the experiment can corrupt the experiment. We should have audited the tool before trusting its output as a metric.</li>
-      <li>Blinding is harder than it looks. Our control group read a design doc that told it it was the control. Every sprint.</li>
-      <li>Our own repo drifted from our own AGENTS.md while we were building a tool to catch exactly that.</li>
+      <li>The control group wasn't blind. The architecture doc every session reads named both tracks and the tool. We found it by accident, with grep, weeks in.</li>
+      <li>One finding was retracted outright. It was a bug in our measurement script, not a difference between the tracks.</li>
+      <li>Then the tool itself turned out to be silently dropping files from the codebases we were measuring. That's issue #110. That voided the run.</li>
     </ul>
+    <p class="note">We keep a numbered list of every known flaw in the harness itself. It's at 63. Run two is going as I stand here.</p>
   </div>
 </section>
 
 
-<!-- 7:25 — THE ASK. Say it, then stop talking. Leave it up through Q&A. -->
+<!-- 6:10 — Two bugs, not twelve. Say why each one matters to you, not
+     just what it does. -->
+<section class="slide" id="wrong" data-title="What's broken">
+  <div class="slide__inner">
+    <p class="kicker">What's broken in the tool</p>
+    <h2 class="h2">Two of the twelve open bugs,<br>and why they matter to us.</h2>
+    <ul class="points">
+      <li><strong>#110.</strong> One long line and it drops the whole file, silently. A tool that measures your code can't be allowed to fail without saying so. This one did, and it took our experiment with it.</li>
+      <li><strong>#112.</strong> Signed-in scans upload raw source snippets, and the telemetry opt-out doesn't cover it. We said local-first. This isn't.</li>
+    </ul>
+    <p class="note">The other ten are on the public tracker with our names on them.</p>
+  </div>
+</section>
+
+
+<!-- 7:00 — THE ASK. Say it, then stop talking. Leave it up through Q&A. -->
 <section class="slide slide--accent slide--center" id="ask" data-title="The ask">
   <div class="slide__inner">
-    <p class="kicker">What we actually can't decide</p>
+    <p class="kicker">What we can't decide</p>
     <h2 class="display">Should it block<br>the agent, or just<br>tell you afterward?</h2>
-    <p class="lede">We've gone back and forth. Blocking is annoying and might be the only thing that works. Telling you afterward is polite and might be useless. You'd know better than we do.</p>
+    <p class="lede">We've argued about this for weeks. You'd know better than we do.</p>
   </div>
 </section>
 
 
 <!-- Trailing slide. Leave up while people come talk to you. -->
-<section class="slide" id="more" data-title="More questions">
+<section class="slide" id="more" data-title="Keep going">
   <div class="slide__inner">
     <p class="kicker">Come argue with me about any of these</p>
     <ul class="points">
       <li>What would make you leave it running after week one?</li>
       <li>What's the first thing you'd stop trusting it about?</li>
       <li>Would you run it on a private repo? Honestly?</li>
-      <li>Is one score useful, or do you just want the findings raw?</li>
     </ul>
     <hr class="rule">
     <p class="note">
