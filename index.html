@@ -19,82 +19,66 @@
      ========================================================================= -->
 
 
-<!-- 0:00 — Open by saying the line out loud before the room reads it. -->
+<!-- 0:00 — Say the title line out loud before they read it. -->
 <section class="slide" id="title" data-title="Title">
   <div class="slide__inner">
     <p class="kicker">San Diego AI Showcase · 1 Sep 2026</p>
-    <h1 class="display">Why AI agents<br>get worse as the<br>project grows</h1>
+    <h1 class="display">Why your coding agent<br>gets worse as the<br>project grows</h1>
     <hr class="rule">
     <p class="note">Brandon Garate · VibeDrift · github.com/VibeDrift/VibeDrift</p>
   </div>
 </section>
 
 
-<!-- 0:15 — The README's own sentence. Say it, then let the examples land. -->
-<section class="slide" id="problem" data-title="Reasonable choices">
+<!-- 0:15 — The whole theory, in 30 seconds. They've lived this; don't
+     explain it to them, just name it. -->
+<section class="slide" id="chasing" data-title="What we're chasing">
   <div class="slide__inner">
-    <p class="kicker">The mechanism</p>
-    <h2 class="h1">It makes reasonable choices<br>that are not <em>your</em> choices.</h2>
-    <p class="lede">Every fresh session starts with no memory of the conventions your codebase already settled on.</p>
+    <p class="kicker">What we're chasing</p>
+    <h2 class="h1">Everything compiles.<br>Everything passes review.</h2>
+    <p class="lede">Every fresh session starts with no memory of what your codebase already settled on. So it makes reasonable choices that aren't <em>your</em> choices.</p>
     <ul class="points">
       <li>One handler throws a typed error. The next returns a plain object.</li>
       <li>Eight services go through the repository layer. The ninth reaches for raw SQL.</li>
-      <li>Everything compiles. Everything passes review.</li>
+      <li>Nobody notices until the third one.</li>
     </ul>
   </div>
 </section>
 
 
-<!-- 0:50 — The specific reason it scales badly. Two compounding effects,
-     then why the existing tools don't see it. This is the educational beat. -->
-<section class="slide" id="compounds" data-title="Why it compounds">
+<!-- 0:45 — What it does, plainly. No adjectives. -->
+<section class="slide" id="built" data-title="What we built">
   <div class="slide__inner">
-    <p class="kicker">Why the twentieth session is worse than the second</p>
-    <h2 class="h2">The agent isn't getting dumber.<br>Its view of the repo is shrinking.</h2>
+    <p class="kicker">What we built</p>
+    <h2 class="h2">It checks your codebase<br>against itself.</h2>
     <ul class="points">
-      <li>At 500 lines it sees everything. At 80,000 it sees a slice, chosen by what looks like the task, not by what set the convention.</li>
-      <li>Once two ways coexist, the next session sees both and has no reason to prefer either. Every fork is a new place to fork.</li>
-      <li>A linter checks one file against a rulebook. A reviewer checks whether the diff works. Neither checks the codebase against <em>itself</em>.</li>
+      <li>Groups files by directory and votes on what each group already does. The winner is the convention.</li>
+      <li>Flags what deviates from that, and points at the line.</li>
+      <li>Runs on your machine. No rulebook, no account, no network for the local scan.</li>
     </ul>
-    <p class="note">That gap is what we call drift. It is always relative to a baseline the repo itself established.</p>
+    <p class="note">That's the whole product. The rest of this is about whether it's any good.</p>
   </div>
 </section>
 
 
-<!-- 1:40 — THE IDEA. Slow down. This is the one thing to land. -->
+<!-- 1:20 — The constraint. It's a rule with a cost, not a slogan. Say the
+     second sentence of the lede like you mean it. -->
 <section class="slide slide--accent slide--center" id="baseline" data-title="No finding without a baseline">
   <div class="slide__inner">
-    <p class="kicker">The core idea</p>
+    <p class="kicker">The rule we gave ourselves</p>
     <h2 class="display">No finding<br>without a baseline.</h2>
-    <p class="lede">A peer group is a precondition, not a nice-to-have. No baseline, no finding.</p>
+    <p class="lede">It can't flag anything unless there's a peer group to deviate from. That keeps it honest. It also makes it hard to prove it works.</p>
   </div>
 </section>
 
 
-<!-- 2:20 — The rules. These are lifted from the handbook, not invented for
-     the talk. Read them as constraints you chose, not features. -->
-<section class="slide" id="rules" data-title="The rules">
-  <div class="slide__inner">
-    <p class="kicker">The rules we hold ourselves to</p>
-    <h2 class="h2">Drift, not quality.</h2>
-    <ul class="points">
-      <li><strong>One measurement.</strong> How far a repo has drifted from its own dominant conventions. Not a quality score. Not a debt score.</li>
-      <li><strong>Honesty over confidence.</strong> When it isn't sure it hedges or stays silent. Nothing to measure earns an N/A, not a free 20.</li>
-      <li><strong>Never false-bless.</strong> It may over-flag. It must never mark an unauthenticated route as authenticated.</li>
-      <li><strong>Consistent does not mean safe.</strong> Printed under the security bar, every scan.</li>
-    </ul>
-    <p class="note">The test every change has to pass: does this make us measure drift more accurately, or more confidently?</p>
-  </div>
-</section>
-
-
-<!-- 3:00 — Why in-loop matters. The abstract promised MCP, deliver it. -->
+<!-- 1:50 — The abstract promised MCP. Deliver it, briefly. -->
 <section class="slide slide--split" id="inloop" data-title="In-loop via MCP">
   <div class="slide__inner">
     <div>
       <p class="kicker">Where it runs</p>
       <h2 class="h2">Before it writes,<br>not after you review.</h2>
-      <p class="lede">An MCP server the agent calls mid-session. It answers from the same baseline the batch scan built, so the in-loop verdict can't contradict the report.</p>
+      <p class="lede">An MCP server the agent can ask mid-session. Same baseline as the scan, so the in-loop answer can't disagree with the report.</p>
     </div>
     <div>
       <pre class="code"><code>claude mcp add vibedrift \
@@ -103,14 +87,14 @@
 # agent, mid-edit:
 validate_change(file, contents)
   → fits: true | false | null</code></pre>
-      <p class="note">Three states, not two. <code>null</code> means unsure, and unsure never blesses.</p>
+      <p class="note">Three answers. <code>null</code> means we're not sure, and we'd rather say that than guess.</p>
     </div>
   </div>
 </section>
 
 
-<!-- 3:40 — DEMO. Run: vibedrift scan . --format terminal
-     Takes ~20s. This slide stays up. Narrate the mechanism while it runs. -->
+<!-- 2:30 — DEMO. Run: vibedrift scan . --format terminal   (~20s)
+     This slide stays up. Talk through the vote while it runs. -->
 <section class="slide" id="demo" data-title="Live scan">
   <div class="slide__inner">
     <p class="kicker">Running now · ~20 seconds</p>
@@ -118,15 +102,16 @@ validate_change(file, contents)
     <ul class="points">
       <li>Groups files by directory, because conventions are local.</li>
       <li>Votes on the dominant pattern in each group.</li>
-      <li>Needs 70% agreement to call it a convention at all.</li>
+      <li>Needs 70% agreement before it calls anything a convention.</li>
       <li>Weights code from this week about twice as heavily as code from three months ago.</li>
     </ul>
-    <p class="note">Below 70%, it reports nothing. A repo that never agreed with itself has no convention to drift from.</p>
+    <p class="note">Below the threshold it reports nothing. A repo that never agreed with itself has nothing to drift from.</p>
   </div>
 </section>
 
 
-<!-- 4:25 — Scroll back up to the score block in the terminal, then this. -->
+<!-- 3:30 — Scroll back up to the score block in the terminal, then this.
+     Point at N/A and say why. Point at the fix plan and say whose rule it is. -->
 <section class="slide" id="score" data-title="Scanning itself">
   <div class="slide__inner">
     <p class="kicker">VibeDrift, scanning VibeDrift</p>
@@ -138,61 +123,76 @@ validate_change(file, contents)
   Intent Clarity               <span class="n">19/20</span>  <span class="bar-on">███████████████████</span><span class="bar-off">░</span>
 
   Vibe Drift Score:            <span class="n">86/100</span>   (over 3 of 4 categories)
-  Hygiene Score:               <span class="n">98/100</span></code></pre>
-    <p class="note">Security shows N/A because there was nothing to measure, not zero. A category with no evidence doesn't get a number.</p>
+
+  1. type naming oscillates: 440 PascalCase, 72 other   <span class="n">[declared divergence]</span>
+     → contradicts AGENTS.md:69</code></pre>
+    <p class="note">Security is N/A because there was nothing to measure and we told it not to guess. The top finding is us contradicting our own AGENTS.md.</p>
   </div>
 </section>
 
 
-<!-- 5:00 — The best beat in the demo. Let them read it. -->
-<section class="slide" id="ownfinding" data-title="It flags itself">
+<!-- 4:15 — Honesty starts here, not on slide 10. These are ours, filed
+     this week, on the public tracker. -->
+<section class="slide" id="wrong" data-title="What it gets wrong">
   <div class="slide__inner">
-    <p class="kicker">Top of its own fix plan</p>
-    <h2 class="h2">It flags us for breaking<br>our own written rule.</h2>
-    <pre class="code"><code>1. type naming convention oscillates:
-   440 use PascalCase, 72 use other    [declared divergence]
-
-   → The code contradicts the team's own declared convention
-   → Declared in AGENTS.md:69 — code disagrees with it</code></pre>
-    <p class="note">Also in its own source: 5 functions that throw "Not implemented", 6 placeholder returns.</p>
-  </div>
-</section>
-
-
-<!-- 5:45 — Honesty section. Pull up the real issues page if the wifi holds,
-     otherwise this slide is enough. -->
-<section class="slide" id="broken" data-title="What's broken">
-  <div class="slide__inner">
-    <p class="kicker">What we're still fixing</p>
-    <h2 class="h2">Twelve open bugs, filed by us,<br>on the public tracker.</h2>
+    <p class="kicker">What it gets wrong</p>
+    <h2 class="h2">Twelve open bugs, ours,<br>on the public tracker.</h2>
     <ul class="points">
-      <li><strong>#110</strong> — one long line makes it drop an entire file, and record nothing when it does.</li>
-      <li><strong>#112</strong> — signed-in scans upload raw source snippets; the telemetry opt-out doesn't cover it.</li>
+      <li><strong>#110</strong> — one long line makes it drop the whole file, and record nothing when it does.</li>
+      <li><strong>#112</strong> — signed-in scans upload raw source snippets. The telemetry opt-out doesn't cover it.</li>
       <li><strong>#118</strong> — sessions silently stop checking past 2,000 functions.</li>
     </ul>
-    <p class="note">github.com/VibeDrift/VibeDrift/issues — all of them, in public, with our names on them.</p>
+    <p class="note">github.com/VibeDrift/VibeDrift/issues · two of those three fail silently, which is the worst way to fail.</p>
   </div>
 </section>
 
 
-<!-- 6:30 — The punchline. Do not rush this. -->
-<section class="slide" id="experiment" data-title="The experiment">
+<!-- 5:00 — The pivot. "We don't know" has to sound like you mean it.
+     The size line is yours to keep or cut. -->
+<section class="slide" id="experiment" data-title="We don't know">
   <div class="slide__inner">
-    <p class="kicker">Does any of this actually work?</p>
-    <h2 class="h1">We built a blinded A/B<br>to find out. It voided itself.</h2>
-    <p class="lede">Same spec built twice, once with the tool in the agent's loop, once without. Every sprint a fresh session with no memory. Protocol pre-registered before we ran it.</p>
-    <p class="lede"><strong>Then the experiment found bug #110 in our own tool</strong> — the one that silently drops files — and that corrupted the measurement. Run one is void.</p>
-    <p class="note">The fix is on a branch. It isn't merged. Run two is going now.</p>
+    <p class="kicker">What we don't know</p>
+    <h2 class="h1">Does any of it work?</h2>
+    <ul class="points">
+      <li>We can't rule out that the score is partly measuring repo size rather than drift.</li>
+      <li>So we built an experiment. Same spec built twice: one track with the tool in the agent's loop, one without. Fresh session every sprint. Protocol written and signed off before we ran anything.</li>
+    </ul>
   </div>
 </section>
 
 
-<!-- 7:15 — THE ASK. Leave this up through Q&A. Stop talking after you say it. -->
+<!-- 5:40 — The punchline. Don't rush it. -->
+<section class="slide" id="voided" data-title="It voided itself">
+  <div class="slide__inner">
+    <p class="kicker">Run one</p>
+    <h2 class="h1">The experiment found a bug in the tool, and the bug corrupted the measurement.</h2>
+    <p class="lede">That's #110. It was silently dropping files from the codebases we were measuring. Run one is void.</p>
+    <p class="note">The fix is on a branch. No PR yet. Run two is going as I stand here.</p>
+  </div>
+</section>
+
+
+<!-- 6:20 — The lesson slide. This is the educational part of the talk.
+     The blinding line is yours to keep or cut. -->
+<section class="slide" id="taught" data-title="What that taught us">
+  <div class="slide__inner">
+    <p class="kicker">What that taught us</p>
+    <h2 class="h2">Three things we got wrong.</h2>
+    <ul class="points">
+      <li>The thing measuring the experiment can corrupt the experiment. We should have audited the tool before trusting its output as a metric.</li>
+      <li>Blinding is harder than it looks. Our control group read a design doc that told it it was the control. Every sprint.</li>
+      <li>Our own repo drifted from our own AGENTS.md while we were building a tool to catch exactly that.</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- 7:15 — THE ASK. Say it, then stop talking. Leave it up through Q&A. -->
 <section class="slide slide--accent slide--center" id="ask" data-title="The ask">
   <div class="slide__inner">
-    <p class="kicker">What I actually came here for</p>
+    <p class="kicker">What we actually can't decide</p>
     <h2 class="display">Should it block<br>the agent, or just<br>tell you afterward?</h2>
-    <p class="lede">Blocking is annoying and might be the only thing that works. Telling you afterward is polite and might be useless.</p>
+    <p class="lede">We've gone back and forth. Blocking is annoying and might be the only thing that works. Telling you afterward is polite and might be useless. You'd know better than we do.</p>
   </div>
 </section>
 
@@ -209,7 +209,7 @@ validate_change(file, contents)
     </ul>
     <hr class="rule">
     <p class="note">
-      github.com/VibeDrift/VibeDrift · vibedrift.ai · 56 stars, help us out<br>
+      github.com/VibeDrift/VibeDrift · vibedrift.ai · 56 stars<br>
       Brandon Garate · linkedin.com/in/brandongarate177
     </p>
   </div>

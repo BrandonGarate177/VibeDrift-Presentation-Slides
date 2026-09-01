@@ -46,18 +46,26 @@ API with a 90-second timeout, and degrades silently on failure.
 | Time | Slide | Beat |
 | --- | --- | --- |
 | 0:00 | 1 | Say the title line out loud before they read it |
-| 0:15 | 2 | "Reasonable choices that are not *your* choices." Let the three examples land |
-| 0:50 | 3 | Why it compounds. Shrinking view, forks breed forks, nothing checks the repo against itself |
-| 1:40 | 4 | **No finding without a baseline.** Slow down here |
-| 2:20 | 5 | The rules. Read them as constraints you chose, not features |
-| 3:00 | 6 | In-loop via MCP. Unsure never blesses |
-| 3:40 | 7 | **Start the scan.** Talk through the mechanism |
-| 4:25 | 8 | Scroll back, read the score |
-| 5:05 | 9 | It flags us for breaking our own written rule |
-| 5:50 | 10 | Twelve open bugs, ours, public |
-| 6:35 | 11 | **The experiment voided itself.** Don't rush it |
-| 7:20 | 12 | **The ask.** Say it, then stop talking |
+| 0:15 | 2 | "Everything compiles, everything passes review." They've lived it; name it, don't explain it |
+| 0:45 | 3 | What we built, no adjectives. "That's the whole product" |
+| 1:20 | 4 | **The rule we gave ourselves.** Say the cost: it makes this hard to prove |
+| 1:50 | 5 | In-loop via MCP. "We'd rather say null than guess" |
+| 2:30 | 6 | **Start the scan.** Talk through the vote while it runs |
+| 3:30 | 7 | Scroll back. Point at N/A, point at the AGENTS.md finding |
+| 4:15 | 8 | Twelve open bugs, ours. Two fail silently |
+| 5:00 | 9 | "We don't know if it works." Mean it. Then the experiment design |
+| 5:40 | 10 | **It voided itself.** Don't rush |
+| 6:20 | 11 | Three things we got wrong. This is the educational part |
+| 7:15 | 12 | **The ask.** Say it, then stop talking |
 | — | 13 | Leave up during Q&A and afterwards |
+
+## Two lines that are yours to cut
+
+Both are true and both are what this event asked for. Neither cites a private
+document. Delete the `<li>` in `index.html` if you'd rather not say it out loud.
+
+- Slide 9: "We can't rule out that the score is partly measuring repo size."
+- Slide 11: "Our control group read a design doc that told it it was the control."
 
 ## Things you'll get asked, and the honest answer
 
