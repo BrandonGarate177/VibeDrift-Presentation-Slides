@@ -181,10 +181,10 @@
     <p class="kicker">What's broke recently</p>
     <h2 class="h2">Two of the twelve open bugs</h2>
     <ul class="points">
-      <li><strong>#110.</strong> One long line and it drops the whole file, silently. A tool that measures your code can't be allowed to fail without saying so. This one did, and it took our experiment with it.</li>
-      <li><strong>#112.</strong> Signed-in scans upload raw source snippets, and the telemetry opt-out doesn't cover it. We said local-first. This isn't.</li>
+      <li><strong>#118.</strong> Drift Sessions silently stop checking once a repo passes 2,000 functions. No advisory, no error. Every edit passes, which reads as "not drifting" when it means "the checker turned itself off." Our own repo is one quarter of growth from tripping it.</li>
+      <li><strong>#110.</strong> One long line and it drops the whole file, and records nothing when it does. This is the one that took our experiment with it.</li>
     </ul>
-    <p class="note">The other ten are on the public tracker with our names on them.</p>
+    <p class="note">Both fail silently, and silence reads as "you're fine." That's the one thing this tool can't afford to say by accident. The other ten are on the public tracker.</p>
   </div>
 </section>
 

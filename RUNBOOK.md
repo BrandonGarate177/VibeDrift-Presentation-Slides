@@ -55,7 +55,7 @@ API with a 90-second timeout, and degrades silently on failure.
 | 3:00 | 7 | **It's running.** Talk through the vote. Then scroll the terminal back and read the score |
 | 4:30 | 8 | The experiment, as designed. Intent only; next slide is what happened |
 | 5:15 | 9 | **What went wrong running it.** Three things, don't soften them. The 63 is real |
-| 6:10 | 10 | Two bugs. Say why each matters to you, not just what it does |
+| 6:10 | 10 | #118 and #110. Both fail silently; that's the point. Say why each matters to you |
 | 7:00 | 11 | **The ask.** Say it, then stop talking |
 | — | 12 | Leave up during Q&A and afterwards |
 
