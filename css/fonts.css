@@ -1,0 +1,34 @@
+/* ==========================================================================
+   fonts.css — VibeDrift brand type, self-hosted.
+
+   Space Grotesk (display), Geist (body), Geist Mono (code) are the three
+   families vibedrift.ai uses. They are served from this repo rather than
+   Google Fonts so the deck has zero network dependency: a talk is exactly
+   the wrong moment to discover the venue wifi is blocking fonts.gstatic.com.
+
+   All three are variable fonts, so one file covers the whole weight range.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("../fonts/SpaceGrotesk.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("../fonts/GeistMono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

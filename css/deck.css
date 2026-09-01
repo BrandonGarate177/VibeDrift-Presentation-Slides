@@ -94,6 +94,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 
 .display, .h1, .h2, .h3 {
   margin: 0;
+  font-family: var(--font-display);
   letter-spacing: var(--tracking-tight);
   text-wrap: balance;
 }
@@ -105,6 +106,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 
 .kicker {
   margin: 0;
+  font-family: var(--font-mono);
   font-size: var(--t-small);
   font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-kicker);
@@ -165,6 +167,7 @@ p { margin: 0; max-width: var(--measure); text-wrap: pretty; }
 
 .stat { display: grid; gap: 0.2em; }
 .stat__value {
+  font-family: var(--font-display);
   font-size: var(--t-1);
   line-height: var(--lh-tight);
   font-weight: var(--weight-bold);
@@ -184,8 +187,9 @@ p { margin: 0; max-width: var(--measure); text-wrap: pretty; }
 .code {
   margin: 0;
   padding: clamp(1rem, 2.5vw, 1.75rem);
-  background: var(--inv-bg);
-  color: var(--inv-fg);
+  background: var(--code-bg);
+  color: var(--code-fg);
+  border: 1px solid var(--code-rule);
   border-radius: var(--radius);
   font-family: var(--font-mono);
   font-size: clamp(0.8rem, 1.25vw, 1.15rem);
@@ -331,3 +335,16 @@ body[data-context="invert"] {
    content. An auto-fit grid measured against a content-sized container
    collapses to a single column, so the stat row has to claim full width. */
 .stat-row { width: 100%; }
+
+/* --- Kicker is a label, not prose ---------------------------------------- */
+/* It's a <p>, so it inherited the 34ch measure meant for body copy and broke
+   "San Diego AI Showcase · 1 Sep 2026" across two lines mid-phrase. */
+.kicker { max-width: none; }
+
+/* --- Terminal score bars -------------------------------------------------- */
+/* The real CLI colours these. Flat grey ASCII blocks turn to mush on a
+   projector, so the filled run gets the brand yellow and the empty run
+   drops back to --dim. */
+.bar-on  { color: var(--accent); }
+.bar-off { color: var(--dim); }
+.code .n { color: var(--info); }

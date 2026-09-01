@@ -1,49 +1,71 @@
 /* ==========================================================================
-   tokens.css — every knob for the deck's appearance lives here.
-   Edit this file to restyle the whole thing. Nothing here is structural.
+   tokens.css — every knob for the deck's appearance.
+
+   Palette lifted from vibedrift.ai's own custom properties so the deck and
+   the site are the same object. Site values, for reference:
+     --bg #121214  --s1 #1a1a1c  --s2 #1f1f22  --bd #26262a  --bd2 #34343a
+     --t  #9a9a92  --d  #5e5e5c  --w  #e8e8e0  --y  #ffd000  --c  #00ddc0
+     --g  #4d6     --r  #f44
+
+   One deliberate divergence: body text is --w (#e8e8e0), not the site's
+   --t (#9a9a92). #9a9a92 on #121214 is ~4.6:1, fine on a laptop and thin
+   on a projector that lifts the blacks. --t is kept for captions only.
    ========================================================================== */
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
   /* --- Canvas ----------------------------------------------------------- */
-  --bg:        #f6f5f1;
-  --bg-raised: #ffffff;
-  --fg:        #14130f;
-  --muted:     #6d6a61;
-  --rule:      #dcd8ce;
+  --bg:        #121214;
+  --bg-raised: #1a1a1c;
+  --bg-panel:  #1f1f22;
+  --fg:        #e8e8e0;
+  --muted:     #9a9a92;
+  --dim:       #5e5e5c;
+  --rule:      #26262a;
+  --rule-soft: #34343a;
 
   /* --- Accent ----------------------------------------------------------- */
-  --accent:      #b8420f;
-  --accent-ink:  #fffaf7;
-  --accent-soft: #f8e6dc;
+  --accent:      #ffd000;
+  --accent-ink:  #121214;
+  --accent-soft: rgba(255, 208, 0, 0.09);
 
-  /* --- Inverted panels (.slide--invert) --------------------------------- */
-  --inv-bg:    #14130f;
-  --inv-fg:    #f6f5f1;
-  --inv-muted: #928d81;
-  --inv-rule:  #322f27;
+  /* --- Status (from the site's own scale) -------------------------------- */
+  --ok:   #44dd66;
+  --warn: #ffd000;
+  --bad:  #ff4444;
+  --info: #00ddc0;
+
+  /* --- Inverted panels (.slide--invert) — light on a dark deck ---------- */
+  --inv-bg:    #e8e8e0;
+  --inv-fg:    #121214;
+  --inv-muted: #5e5e5c;
+  --inv-rule:  #c9c9c0;
+
+  /* --- Code ------------------------------------------------------------- */
+  --code-bg: #1a1a1c;
+  --code-fg: #e8e8e0;
+  --code-rule: #26262a;
 
   /* --- Type ------------------------------------------------------------- */
-  /* System stack on purpose: zero network requests, so the deck renders
-     identically with the venue wifi down. Swap in a webfont if you want. */
-  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
-               Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  /* Self-hosted in fonts/. See css/fonts.css. */
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    "Geist", ui-sans-serif, -apple-system, system-ui, sans-serif;
+  --font-mono:    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --t-display: clamp(3rem, 8.5vw, 7.5rem);
-  --t-1:       clamp(2.25rem, 5.5vw, 4.5rem);
-  --t-2:       clamp(1.6rem, 3.4vw, 2.75rem);
-  --t-3:       clamp(1.2rem, 2vw, 1.75rem);
-  --t-body:    clamp(1.05rem, 1.65vw, 1.5rem);
+  --t-display: clamp(2.75rem, 7.5vw, 6.5rem);
+  --t-1:       clamp(2rem, 5vw, 4rem);
+  --t-2:       clamp(1.5rem, 3.2vw, 2.6rem);
+  --t-3:       clamp(1.15rem, 1.9vw, 1.7rem);
+  --t-body:    clamp(1.05rem, 1.6vw, 1.45rem);
   --t-small:   clamp(0.8rem, 1vw, 0.95rem);
 
-  --lh-tight: 1.03;
+  --lh-tight: 1.04;
   --lh-snug:  1.18;
   --lh-body:  1.5;
 
-  --tracking-tight: -0.022em;
-  --tracking-kicker: 0.14em;
+  --tracking-tight:  -0.02em;
+  --tracking-kicker:  0.14em;
 
   --weight-normal: 400;
   --weight-medium: 500;
@@ -56,32 +78,39 @@
   --measure: 34ch;
   --content-max: 1240px;
 
-  /* --- Chrome (rail, counter) ------------------------------------------- */
+  /* --- Chrome ----------------------------------------------------------- */
   --rail-inset: clamp(0.75rem, 2vw, 1.75rem);
   --dot-size: 7px;
-  --dot-size-active: 7px;
   --radius: 10px;
 
   --dur: 420ms;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* Dark theme. Toggle live with the `t` key. */
-:root[data-theme="dark"] {
-  color-scheme: dark;
+/* Light fallback. Press `t` if the venue projector washes out the darks.
+   Not brand-accurate, deliberately: this exists to rescue a bad room. */
+:root[data-theme="light"] {
+  color-scheme: light;
 
-  --bg:        #100f0c;
-  --bg-raised: #1a1915;
-  --fg:        #f2f0ea;
-  --muted:     #8f8b80;
-  --rule:      #2e2b24;
+  --bg:        #f4f2ec;
+  --bg-raised: #ffffff;
+  --bg-panel:  #e8e8e0;
+  --fg:        #121214;
+  --muted:     #5e5e5c;
+  --dim:       #9a9a92;
+  --rule:      #d6d4cc;
+  --rule-soft: #c4c2ba;
 
-  --accent:      #ff7a45;
-  --accent-ink:  #17130f;
-  --accent-soft: #2b1a12;
+  --accent:      #a37800;
+  --accent-ink:  #ffffff;
+  --accent-soft: rgba(255, 208, 0, 0.16);
 
-  --inv-bg:    #f2f0ea;
-  --inv-fg:    #100f0c;
-  --inv-muted: #63605a;
-  --inv-rule:  #d3cfc5;
+  --inv-bg:    #121214;
+  --inv-fg:    #e8e8e0;
+  --inv-muted: #9a9a92;
+  --inv-rule:  #34343a;
+
+  --code-bg: #1a1a1c;
+  --code-fg: #e8e8e0;
+  --code-rule: #34343a;
 }

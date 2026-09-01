@@ -1,4 +1,7 @@
-# Talk deck
+# Why your coding agent gets worse as the project grows
+
+Talk deck for the San Diego AI Showcase, 1 September 2026. See `RUNBOOK.md`
+for the presenter checklist, timings and demo commands.
 
 A vertical, scroll-snapping slide site. One HTML file, two stylesheets, one script.
 No build step, no dependencies, no network requests at runtime.
@@ -55,9 +58,15 @@ Everything visual is a custom property in `css/tokens.css`: colours, the type
 scale, spacing, the accent. Start there. `css/deck.css` holds layout mechanics
 and only reads those tokens.
 
-The type is a system font stack on purpose, so the deck renders the same with
-the venue wifi down. Swapping in a webfont means the deck now depends on the
-network at exactly the moment you cannot debug it.
+The palette is lifted from vibedrift.ai's own custom properties, so the deck and
+the site are the same object. One deliberate divergence: body text is `#e8e8e0`
+rather than the site's `#9a9a92`, which is fine on a laptop and thin on a
+projector that lifts the blacks.
+
+Space Grotesk, Geist and Geist Mono are self-hosted in `fonts/` (68KB, three
+variable-font files). Loading them from Google would make the deck depend on the
+venue network at exactly the moment you cannot debug it. Press `t` during a talk
+to flip to a light theme if the projector washes out the darks.
 
 ## Deploy
 
