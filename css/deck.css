@@ -49,8 +49,13 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 
 /* --- Slide variants ------------------------------------------------------ */
 
-.slide--center { justify-items: center; text-align: center; }
-.slide--center .slide__inner { justify-items: center; }
+/* Centre with text-align, not justify-items. justify-items: center stops the
+   grid children stretching, which makes the column content-sized: any child
+   asking for width: 100% then resolves against its own content and an
+   auto-fit grid inside it collapses to one column. */
+.slide--center { text-align: center; }
+.slide--center .slide__inner { justify-items: stretch; }
+.slide--center .rule { margin-inline: auto; }
 
 .slide--raised { background: var(--bg-raised); }
 
@@ -259,3 +264,70 @@ code { font-family: var(--font-mono); font-size: 0.92em; }
     page-break-after: always;
   }
 }
+
+/* --- Centred slides need a wider measure --------------------------------- */
+/* The 34ch measure is right for left-aligned body text and too tight when
+   the text is centred: it strands one or two words on a stub line. */
+
+.note { max-width: 62ch; }
+
+.slide--center .lede,
+.slide--center .note,
+.slide--center p {
+  max-width: min(56ch, 100%);
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
+/* Bulleted lists stay left-aligned even on a centred slide: centred bullets
+   give every line a different left edge and are hard to read from the back
+   of a room. The block itself is centred. */
+.slide--center .points {
+  text-align: left;
+  margin-inline: auto;
+  width: fit-content;
+}
+
+/* --- Stacking inside a split column -------------------------------------- */
+/* .slide__inner's gap only separates the columns themselves. Content stacked
+   inside one column needs its own rhythm. */
+
+.slide--split .slide__inner > * {
+  display: grid;
+  gap: var(--gap);
+  align-content: center;
+}
+
+/* A kicker belongs to the heading under it, so pull the pair together. */
+.kicker + .display,
+.kicker + .h1,
+.kicker + .h2,
+.kicker + .h3 { margin-top: calc(var(--gap) * -0.5); }
+
+/* --- Chrome contrast over coloured slides -------------------------------- */
+/* deck.js sets data-context on <body> from the current slide's variant. The
+   rail and counter are fixed, so without this the active dot is accent-on-
+   accent and disappears exactly where the deck is most emphatic. */
+
+:root { --chrome-fg: var(--fg); --rail-active: var(--accent); }
+
+body[data-context="accent"] {
+  --chrome-fg: var(--accent-ink);
+  --rail-active: var(--accent-ink);
+}
+body[data-context="invert"] {
+  --chrome-fg: var(--inv-fg);
+  --rail-active: var(--accent);
+}
+
+.rail, .counter {
+  color: var(--chrome-fg);
+  transition: color var(--dur) var(--ease);
+}
+.counter { opacity: 0.55; }
+.rail__dot[aria-current="true"] { background: var(--rail-active); }
+
+/* .slide--center sets justify-items: center, which sizes children to their
+   content. An auto-fit grid measured against a content-sized container
+   collapses to a single column, so the stat row has to claim full width. */
+.stat-row { width: 100%; }

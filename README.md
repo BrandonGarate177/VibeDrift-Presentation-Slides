@@ -6,11 +6,15 @@ No build step, no dependencies, no network requests at runtime.
 ## Run it locally
 
 ```bash
-python3 -m http.server 8000
-# open http://localhost:8000
+python3 serve.py        # http://127.0.0.1:8000
 ```
 
-Opening `index.html` directly with `file://` also works.
+Use `serve.py` rather than `python3 -m http.server`. The stdlib server sends no
+cache headers, so browsers apply heuristic caching and keep serving the
+stylesheet you just edited. `serve.py` sends `no-store`, which is the difference
+between seeing your change and thinking you broke something.
+
+Opening `index.html` over `file://` works too, and caches just as aggressively.
 
 ## Present it
 

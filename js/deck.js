@@ -63,6 +63,15 @@
         dot.setAttribute("aria-current", i === index ? "true" : "false");
       });
     }
+    // The rail and counter are fixed, so they sit on top of whatever the
+    // current slide's background happens to be. Tell them which it is.
+    const slide = slides[index];
+    document.body.dataset.context = slide.classList.contains("slide--accent")
+      ? "accent"
+      : slide.classList.contains("slide--invert")
+        ? "invert"
+        : "default";
+
     if (counterNow) counterNow.textContent = pad(index + 1);
     if (live) live.textContent = `Slide ${index + 1} of ${slides.length}`;
 
