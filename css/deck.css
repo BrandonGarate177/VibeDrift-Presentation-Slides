@@ -449,3 +449,8 @@ body[data-context="invert"] {
   border: 1px solid var(--code-rule);
   background: var(--code-bg);
 }
+
+/* --- Links --------------------------------------------------------------- */
+a { color: var(--accent); text-decoration: none; }
+a:hover, a:focus-visible { text-decoration: underline; text-underline-offset: 0.15em; }
+.note a { font-weight: var(--weight-medium); }
