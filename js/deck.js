@@ -72,6 +72,12 @@
         ? "invert"
         : "default";
 
+    // Only the current slide's recording plays; the rest sit on their poster.
+    document.querySelectorAll("video[data-autoplay]").forEach((v) => {
+      if (slide.contains(v)) v.play().catch(() => {});
+      else v.pause();
+    });
+
     if (counterNow) counterNow.textContent = pad(index + 1);
     if (live) live.textContent = `Slide ${index + 1} of ${slides.length}`;
 

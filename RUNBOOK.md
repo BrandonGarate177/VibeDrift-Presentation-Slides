@@ -29,8 +29,11 @@ If the scan fails or the laptop misbehaves, the same output is in the repo:
 cat demo/scan-output.txt | head -45
 ```
 
-Deep scan is deliberately **not** in this talk. It needs an account, hits a hosted
-API with a 90-second timeout, and degrades silently on failure.
+The deep scan is on slide 8 as a recording, not live. It was recorded this
+afternoon on the same repo (`demo/deep-scan.tape`, transcript in
+`demo/deep-scan-output.txt`). The 63-second wait is sped up 8x in the cut;
+everything else is real time. If someone asks why it isn't live: it needs an
+account, hits a hosted API with a 90-second timeout, and fails silently.
 
 ## Keys
 
@@ -50,21 +53,22 @@ API with a 90-second timeout, and degrades silently on failure.
 | 0:15 | 2 | **The window.** Point at the diagram: same box, both rows. The repo grew, the box didn't |
 | 0:55 | 3 | Why it compounds. Nothing carries over; the slice is task-shaped; forks breed forks |
 | 1:30 | 4 | "Everything compiles, everything passes review." Name it, don't explain it |
-| 1:55 | 5 | **Where we're at.** Introduce it by name. Read the four numbers as they are, including the 1 |
+| 1:55 | 5 | **Where we're at.** Introduce it by name. Say the numbers out loud: ~45 use it, one pays |
 | 2:40 | 6 | The command. Say what it is and why this repo. Then hit enter |
 | 3:00 | 7 | **It's running.** Talk through the vote. Then scroll the terminal back and read the score |
-| 4:30 | 8 | The experiment, as designed. Intent only; next slide is what happened |
-| 5:15 | 9 | **What went wrong running it.** Three things, don't soften them. The 63 is real |
-| 6:10 | 10 | #118 and #110. Both fail silently; that's the point. Say why each matters to you |
-| 7:00 | 11 | **The ask.** Say it, then stop talking |
-| — | 12 | Leave up during Q&A and afterwards |
+| 4:10 | 8 | **The deep scan, recorded.** Video plays on its own, 29s. Say it's real, spinner sped up. Point at the AGENTS.md finding when it lands |
+| 4:50 | 9 | The experiment, as designed. Intent only; next slide is what happened |
+| 5:35 | 10 | **What went wrong running it.** Three things, don't soften them. The 63 is real |
+| 6:30 | 11 | #118 and #110. Both fail silently; that's the point |
+| 7:20 | 12 | **The ask.** Say it, then stop talking |
+| — | 13 | Leave up during Q&A and afterwards |
 
 ## Lines that are yours to cut
 
 These are true and they're what this event asked for. They come from a private
 repo. Delete the `<li>` in `index.html` if you'd rather not say one out loud.
 
-- Slide 9: the control-group-wasn't-blind line, the retraction, and the 63 numbered
+- Slide 10: the control-group-wasn't-blind line, the retraction, and the 63 numbered
   harness flaws. All three come from the experiment repo's own findings docs
   (`BLINDING-INTEGRITY-FINDINGS.md`, `FORMWORK-RUN-1-FINDINGS.md`, `GAPS.md`).
   They're methodology, not numbers, and they're what this event asked for.

@@ -1,0 +1,593 @@
+╭─────────────────────╮
+│  VibeDrift v0.20.1  │
+╰─────────────────────╯
+
+Scanning: /Users/brandongarate/Documents/programming_projects/VibeDrift-ORG/VibeDrift
+Files: 413 (JS: 8, TS: 405) | Lines: 81,435 | Time: 65.0s
+
+  📘 Declared conventions (from AGENTS.md)
+     .then() chains · PascalCase · async/await · camelCase · describe/it (BDD) · framework mocks · named exports · path alias · throw on error
+
+  📈 Since last scan (31m ago): no changes
+
+── Vibe Drift Score ────────────────────────────────
+  Architectural Consistency    14/20  ██████████████░░░░░░
+  Redundancy                   20/20  ████████████████████
+  Security Consistency           N/A — nothing to measure in this repo
+                                 consistent ≠ safe: measures how uniformly this repo applies its own auth, validation, and rate-limit patterns, not the absence of vulnerabilities
+  Intent Clarity               19/20  ███████████████████░
+  ──────────────────────────────────
+  Vibe Drift Score:            86/100  (over 3 of 4 categories)
+  Hygiene Score:               98/100
+
+  Vibe Drift Score — how consistent your code is with its own dominant patterns.
+  Hygiene Score — generic quality checks (complexity, dead code, TODOs, …). Independent of drift.
+
+── Fix Plan ──────────────────────────────────────
+  Highest-impact drifts to re-align first.
+
+  1. type naming convention oscillates: 440 use PascalCase, 72 use other conventions — likely f [declared divergence]
+     scripts/build-handbook.mjs:87  +1.7pts consistency
+     → The code contradicts the team's own declared convention
+     Declared in AGENTS.md:69 — code disagrees with the team's stated convention.
+  2. 131 JS/TS files use JSDoc (/** ... */) while 85 use other styles
+     bin/vibedrift-hook.mjs  +0.9pts consistency
+     → Mixed doc styles confuse tooling and new contributors
+  3. Team declared throws on error in AGENTS.md but src/analyzers/ uses throws on error (2/4 fi [declared divergence]
+     src/analyzers/dependencies.ts:327  +0.3pts consistency
+     → The code contradicts the team's own declared convention
+     Declared in AGENTS.md:72 — code disagrees with the team's stated convention.
+  4. 1 file(s) use structured logger (winston) while 30 use console.*
+     src/drift/logging-consistency.ts:5  +0.2pts consistency
+     → Inconsistent logging makes debugging harder in production
+  5. src/auth/: 1 file(s) use constructor injection while 3 use no dependency injection
+     src/auth/api.ts:159  +0.1pts consistency
+     → New code in this directory will copy the wrong pattern
+
+  Fix these 5 → projected ~90/100 (B → A)
+
+── Architectural Consistency ───────────────────────
+  ⚠ 2 files use snake_case while majority uses camelCase (H=0.01)
+    src/ml-client/coherence.ts
+    test/unit/session/outcome-anchors.test.ts
+  ⚠ Mixed ESM and non-builtin CommonJS in test/unit/analyzers/dependencies.test.ts
+    test/unit/analyzers/dependencies.test.ts
+  ⚠ Mixed ESM and non-builtin CommonJS in test/unit/analyzers/imports.test.ts
+    test/unit/analyzers/imports.test.ts
+  ⚠ Mixed ESM and non-builtin CommonJS in test/unit/codedna/pattern-classifier.test.ts
+    test/unit/codedna/pattern-classifier.test.ts
+  ⚠ Mixed ESM/CommonJS across project: 398 ESM files, 3 CJS files
+    test/unit/analyzers/dependencies.test.ts
+    test/unit/analyzers/imports.test.ts
+    test/unit/codedna/pattern-classifier.test.ts
+  ⚠ DRIFT: src/session/: 1 file(s) use inline HTTP client calls while 3 use repository pattern
+    src/session/entitlement.ts:167
+  ⚠ DRIFT: scripts/: 1 file(s) use config struct via DI while 2 use direct env var access
+    scripts/build-handbook.mjs:36
+  ⚠ DRIFT: src/cli/commands/: 1 file(s) use direct env var access while 11 use config struct via DI
+    src/cli/commands/feedback.ts:77
+  ⚠ DRIFT: src/session/: 1 file(s) use direct env var access while 3 use config struct via DI
+    src/session/hook-entry.ts:34
+  ⚠ DRIFT: src/auth/: 1 file(s) use constructor injection while 3 use no dependency injection
+    src/auth/api.ts:159
+  ✘ DRIFT: type naming convention oscillates: 440 use PascalCase, 72 use other conventions — likely from different AI sessions
+    scripts/build-handbook.mjs:87
+    src/analyzers/dead-code.ts:95
+    src/auth/api.ts:87
+    ... and 7 more
+  ℹ DRIFT: File names in scripts/: 3 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/analyzers/: 5 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/codedna/: 7 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/core/: 12 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/drift/: 24 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/mcp/: 5 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/mcp/tools/: 6 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/ml-client/: 7 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/output/: 6 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/session/: 12 use kebab-case, 0 deviate
+  ℹ DRIFT: File names in src/tools-core/tools/: 5 use kebab-case, 0 deviate
+  ℹ DRIFT: Import path style in src/cli/commands/: 11 files use relative paths (./), 0 deviate
+  ℹ DRIFT: Import path style in src/drift/: 3 files use relative paths (./), 0 deviate
+  ℹ DRIFT: Import path style in src/drift/import-style/: 4 files use relative paths (./), 0 deviate
+  ℹ DRIFT: Import path style in src/mcp/: 3 files use relative paths (./), 0 deviate
+  ℹ DRIFT: Import path style in src/mcp/tools/: 5 files use relative paths (./), 0 deviate
+  ℹ DRIFT: Import path style in src/output/: 4 files use relative paths (./), 0 deviate
+  ℹ DRIFT: Import path style in src/session/: 12 files use relative paths (./), 0 deviate
+  ℹ DRIFT: Import path style in src/tools-core/tools/: 5 files use relative paths (./), 0 deviate
+  ℹ DRIFT: Export style in src/analyzers/: 13 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/auth/: 5 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/cli/commands/: 11 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/codedna/: 10 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/core/: 21 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/drift/: 25 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/drift/import-style/: 8 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/drift/route-extractors/: 7 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/mcp/: 6 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/mcp/tools/: 8 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/ml-client/: 8 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/output/: 12 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/scoring/: 3 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/session/: 33 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/tools-core/tools/: 7 files use named exports only, 0 deviate
+  ℹ DRIFT: Export style in src/utils/: 3 files use named exports only, 0 deviate
+  ⚠ DRIFT: Team declared throws on error in AGENTS.md but src/analyzers/ uses throws on error (2/4 files)
+    src/analyzers/dependencies.ts:327
+    src/analyzers/naming.ts:23
+  ⚠ DRIFT: 1 file(s) in src/auth/ use null/undefined sentinels while 2 use throws on error
+    src/auth/resolver.ts:24
+  ⚠ DRIFT: 1 file(s) in src/cli/commands/ use null/undefined sentinels while 3 use throws on error
+    src/cli/commands/scan.ts:1080
+  ⚠ DRIFT: Team declared throws on error in AGENTS.md but src/codedna/ uses null/undefined sentinels (3/4 files)
+    src/codedna/find-similar-to-body.ts:3
+  ⚠ DRIFT: Team declared throws on error in AGENTS.md but src/core/ uses null/undefined sentinels (10/10 files)
+  ⚠ DRIFT: Team declared throws on error in AGENTS.md but src/drift/ uses null/undefined sentinels (16/18 files)
+    src/drift/architectural-contradiction.ts:99
+    src/drift/return-shape-consistency.ts:14
+  ⚠ DRIFT: Team declared throws on error in AGENTS.md but src/drift/import-style/ uses null/undefined sentinels (3/3 files)
+  ⚠ DRIFT: Team declared throws on error in AGENTS.md but src/ml-client/ uses null/undefined sentinels (5/9 files)
+    src/ml-client/client.ts:12
+    src/ml-client/embed-client.ts:27
+    src/ml-client/log-scan.ts:230
+    src/ml-client/upload-report.ts:20
+  ⚠ DRIFT: Team declared throws on error in AGENTS.md but src/output/ uses null/undefined sentinels (3/4 files)
+    src/output/inject-context.ts:26
+  ⚠ DRIFT: Team declared throws on error in AGENTS.md but src/session/ uses null/undefined sentinels (10/12 files)
+    src/session/activation.ts:276
+    src/session/detect.ts:5
+  ⚠ DRIFT: 1 file(s) use structured logger (winston) while 30 use console.*
+    src/drift/logging-consistency.ts:5
+  ℹ DRIFT: 1 file(s) in src/drift/ have burst-authorship shape (single-author, one sitting) while 22 sibling(s) were cultivated over time
+    src/drift/route-auth-classify.ts:1
+
+── Redundancy ──────────────────────────────────────
+  ⚠ DRIFT: scripts/: 1 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    scripts/build-handbook.mjs:60
+  ⚠ DRIFT: src/analyzers/: 1 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    src/analyzers/index.ts:16
+  ⚠ DRIFT: src/auth/: 1 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    src/auth/plan.ts:11
+  ⚠ DRIFT: src/cli/commands/: 1 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    src/cli/commands/update.ts:40
+  ⚠ DRIFT: src/core/: 3 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    src/core/baseline.ts:112
+    src/core/embedding-index.ts:65
+    src/core/import-resolver.ts:175
+    src/core/update-check.ts:54
+  ✘ DRIFT: src/drift/: 19 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    src/drift/utils.ts:477
+    src/drift/security-ast-python.ts:1130
+    src/drift/security-ast-rust.ts:469
+    ... and 5 more
+  ✘ DRIFT: src/mcp/tools/: 3 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    src/mcp/tools/get-dominant-pattern.ts:16
+    src/mcp/tools/get-intent-hints.ts:16
+    src/mcp/tools/check-file-drift.ts:17
+    src/mcp/tools/validate-change.ts:17
+    src/mcp/tools/find-similar-function.ts:17
+  ✘ DRIFT: src/output/: 4 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    src/output/context-md.ts:20
+    src/output/fix-plan-select.ts:29
+    src/output/html.ts:41
+  ⚠ DRIFT: src/session/: 2 pair(s) of semantically duplicate functions detected (MinHash + LCS verified)
+    src/session/nudge.ts:34
+    src/session/intent-state.ts:56
+    src/session/outcomes.ts:208
+  ℹ Exact semantic duplicate: projectHash(), projectHash() have identical normalized bodies across 2 files
+    src/core/baseline.ts:112
+    test/unit/core/findings-cache.test.ts:16
+  ℹ Exact semantic duplicate: projectDir(), projectDir() have identical normalized bodies across 2 files
+    src/core/findings-cache.ts:30
+    src/core/history.ts:40
+  ℹ Exact semantic duplicate: namesStatePath(), uploadStatePath() have identical normalized bodies across 2 files
+    src/session/file-names.ts:199
+    src/session/upload-state.ts:46
+  ℹ Exact semantic duplicate: writeIntentState(), writeOutcomeState() have identical normalized bodies across 2 files
+    src/session/intent-state.ts:56
+    src/session/outcomes.ts:208
+  ✘ ML-detected semantic duplicate: src/drift/security-ast-go.ts::goCredKeyIsCredential and src/drift/security-ast-rust.ts::rustCredKeyIsCredential (97% similar)
+    src/drift/security-ast-go.ts
+    src/drift/security-ast-rust.ts
+  ✘ ML-detected semantic duplicate: src/drift/security-ast-go.ts::goNameIsFlavored and src/drift/security-ast-python.ts::dependsNameIsAuth (91% similar)
+    src/drift/security-ast-go.ts
+    src/drift/security-ast-python.ts
+  ✘ ML-detected semantic duplicate: src/drift/security-ast-python.ts::dependsNameIsAuth and src/drift/security-ast-rust.ts::rustNameIsFlavored (90% similar)
+    src/drift/security-ast-python.ts
+    src/drift/security-ast-rust.ts
+
+── Security Consistency (N/A) ───
+  Not applicable for this project's languages
+
+── Intent Clarity ──────────────────────────────────
+  ℹ DRIFT: 131 JS/TS files use JSDoc (/** ... */) while 85 use other styles
+    bin/vibedrift-hook.mjs
+    bin/vibedrift.mjs
+    scripts/build-handbook.mjs
+    ... and 12 more
+  ⚠ Function name mismatch: decoratorName() — name doesn't match behavior (4% name-body alignment)
+    src/drift/security-ast-python.ts
+  ⚠ Function name mismatch: goMiddlewareName() — name doesn't match behavior (5% name-body alignment)
+    src/drift/security-ast-go.ts
+  ⚠ Function name mismatch: receiverName() — name doesn't match behavior (7% name-body alignment)
+    src/drift/security-ast-python.ts
+
+── Hygiene findings (not part of Vibe Drift Score) ──────
+  Generic hygiene checks — complexity, dead code, TODOs, generic
+  security and dependency issues. These feed the Hygiene Score
+  (98/100), not the drift composite.
+
+── Architectural Consistency ───────────────────────
+  ✘ 6 empty catch blocks found
+    src/output/html.ts:1429
+    src/output/html.ts:1430
+    src/output/html.ts:1440
+    ... and 3 more
+  ℹ 17 async functions without error handling in src/auth/
+    src/auth
+  ℹ 14 async functions without error handling in src/core/
+    src/core
+  ℹ 4 async functions without error handling in src/mcp/
+    src/mcp
+  ℹ 6 async functions without error handling in src/session/
+    src/session
+  ℹ 7 async functions without error handling in src/tools-core/tools/
+    src/tools-core/tools
+  ℹ 12 async functions without error handling in test/integration/
+    test/integration
+  ℹ 7 async functions without error handling in test/unit/analyzers/
+    test/unit/analyzers
+  ℹ 8 async functions without error handling in test/unit/core/
+    test/unit/core
+  ℹ 12 async functions without error handling in test/unit/drift/
+    test/unit/drift
+  ℹ 12 async functions without error handling in test/unit/mcp/
+    test/unit/mcp
+  ℹ 13 async functions without error handling in test/unit/mcp/tools/
+    test/unit/mcp/tools
+  ℹ 28 async functions without error handling in test/unit/session/
+    test/unit/session
+
+── Redundancy ──────────────────────────────────────
+  ✘ 15 TODO(s) sitting next to stub-shaped code (placeholder returns / NotImplementedError / panic). Likely unfinished implementations in production.
+    src/analyzers/implementation-gap.ts:16
+    src/analyzers/implementation-gap.ts:26
+    src/analyzers/implementation-gap.ts:115
+    ... and 7 more
+  ⚠ 6 TODOs clustered in src/analyzers/implementation-gap.ts (project mean 0.2/file, p=1.9e-7)
+    src/analyzers/implementation-gap.ts:16
+    src/analyzers/implementation-gap.ts:26
+    src/analyzers/implementation-gap.ts:58
+    ... and 3 more
+  ⚠ 2 TODOs clustered in src/analyzers/security.ts (project mean 0.2/file, p=2.4e-2)
+    src/analyzers/security.ts:40
+    src/analyzers/security.ts:56
+  ✘ 30 TODOs clustered in src/analyzers/todo-density.ts (project mean 0.2/file, p=0.0e+0)
+    src/analyzers/todo-density.ts:2
+    src/analyzers/todo-density.ts:2
+    src/analyzers/todo-density.ts:2
+    ... and 7 more
+  ⚠ 2 TODOs clustered in src/codedna/deviation-heuristics.ts (project mean 0.2/file, p=2.4e-2)
+    src/codedna/deviation-heuristics.ts:51
+    src/codedna/deviation-heuristics.ts:51
+  ⚠ 4 TODOs clustered in src/output/fix-prompt.ts (project mean 0.2/file, p=1.1e-4)
+    src/output/fix-prompt.ts:75
+    src/output/fix-prompt.ts:76
+    src/output/fix-prompt.ts:76
+    src/output/fix-prompt.ts:222
+  ⚠ 2 TODOs clustered in src/output/terminal.ts (project mean 0.2/file, p=2.4e-2)
+    src/output/terminal.ts:249
+    src/output/terminal.ts:250
+  ⚠ 2 TODOs clustered in src/scoring/categories.ts (project mean 0.2/file, p=2.4e-2)
+    src/scoring/categories.ts:79
+    src/scoring/categories.ts:80
+  ⚠ 4 TODOs clustered in test/integration/scan.test.ts (project mean 0.2/file, p=1.1e-4)
+    test/integration/scan.test.ts:28
+    test/integration/scan.test.ts:60
+    test/integration/scan.test.ts:62
+    test/integration/scan.test.ts:78
+  ⚠ 8 TODOs clustered in test/unit/analyzers/implementation-gap.test.ts (project mean 0.2/file, p=1.9e-10)
+    test/unit/analyzers/implementation-gap.test.ts:80
+    test/unit/analyzers/implementation-gap.test.ts:131
+    test/unit/analyzers/implementation-gap.test.ts:136
+    ... and 5 more
+  ✘ 14 TODOs clustered in test/unit/analyzers/todo-density.test.ts (project mean 0.2/file, p=0.0e+0)
+    test/unit/analyzers/todo-density.test.ts:2
+    test/unit/analyzers/todo-density.test.ts:27
+    test/unit/analyzers/todo-density.test.ts:28
+    ... and 7 more
+  ⚠ 7 TODOs clustered in test/unit/drift/security-ast-rust.test.ts (project mean 0.2/file, p=6.4e-9)
+    test/unit/drift/security-ast-rust.test.ts:228
+    test/unit/drift/security-ast-rust.test.ts:836
+    test/unit/drift/security-ast-rust.test.ts:880
+    ... and 4 more
+  ⚠ 2 TODOs clustered in test/unit/output/history-diff.test.ts (project mean 0.2/file, p=2.4e-2)
+    test/unit/output/history-diff.test.ts:213
+    test/unit/output/history-diff.test.ts:214
+  ⚠ 3 TODOs clustered in test/unit/scoring/engine.test.ts (project mean 0.2/file, p=1.8e-3)
+    test/unit/scoring/engine.test.ts:105
+    test/unit/scoring/engine.test.ts:111
+    test/unit/scoring/engine.test.ts:111
+  ℹ 97 TODOs/FIXMEs across 24 files (density: 1.2/1K lines)
+  ✘ 26 exported symbols appear unused: FileLocation, configExists, loadVibeDriftConfig, resolveDeviationWeights, isDebugEnabled...
+    src/analyzers/base.ts:19
+    src/auth/config.ts:146
+    src/core/config.ts:57
+    ... and 12 more
+  ⚠ 10 file(s) with zero incoming imports (potential dead code)
+    bin/vibedrift-hook.mjs
+    bin/vibedrift.mjs
+    scripts/bench.mjs
+    ... and 7 more
+  ✘ 30 pair(s) of duplicate/near-duplicate functions detected
+    test/integration/intent-hints.test.ts:15
+    test/integration/temporal-pivot.test.ts:36
+    test/integration/intent-hints.test.ts:20
+    ... and 17 more
+
+── Dependency Health ───────────────────────────────
+  ⚠ 3 phantom dependencies (declared but unused): tree-sitter-wasms, @supabase/supabase-js, tsx
+    package.json
+    package.json
+    package.json
+  ℹ 20 env vars used but no .env.example file found
+
+── Security Consistency ────────────────────────────
+  ⚠ dangerouslySetInnerHTML used — ensure input is sanitized in src/analyzers/security.ts:280
+    src/analyzers/security.ts:280
+  ℹ URL constructed from variable — review if the source is user-controlled in src/ml-client/log-scan.ts:283
+    src/ml-client/log-scan.ts:283
+  ℹ URL constructed from variable — review if the source is user-controlled in src/ml-client/upload-report.ts:45
+    src/ml-client/upload-report.ts:45
+
+── Intent Clarity ──────────────────────────────────
+  ⚠ 97 functions with generic/unclear names (35 corpus-derived) — e.g. handle, data, name, body, map
+    src/analyzers/complexity.ts:16
+    src/analyzers/complexity.ts:24
+    src/cli/commands/update.ts:63
+    ... and 7 more
+  ℹ 557 functions with very short names (<3 chars)
+    scripts/build-handbook.mjs:666
+    src/codedna/semantic-fingerprint.ts:102
+    src/codedna/semantic-fingerprint.ts:108
+    ... and 7 more
+  ✘ 285 functions exceed 50 lines
+    scripts/bench.mjs:119
+    scripts/build-handbook.mjs:106
+    scripts/build-handbook.mjs:214
+    ... and 7 more
+  ⚠ 33 files over 100 lines have <5% comment density — intent may be unclear to maintainers
+    src/analyzers/language-specific.ts
+    test/integration/session-nudge.test.ts
+    test/unit/analyzers/dependencies.test.ts
+    ... and 7 more
+  ✘ Function "collectPyMiddleware" has cognitive complexity 121 (threshold: 15)
+    src/drift/security-ast-python.ts:1362
+  ✘ Function "main" has cognitive complexity 118 (threshold: 15)
+    src/session/hook-entry.ts:82
+  ✘ Function "scanGoBody" has cognitive complexity 96 (threshold: 15)
+    src/drift/security-ast-go.ts:754
+  ✘ Function "scanBody" has cognitive complexity 96 (threshold: 15)
+    src/drift/security-ast-python.ts:1015
+  ✘ Function "extractGoRoutesAst" has cognitive complexity 70 (threshold: 15)
+    src/drift/security-ast-go.ts:1353
+  ✘ Function "collectGoMiddleware" has cognitive complexity 65 (threshold: 15)
+    src/drift/security-ast-go.ts:1183
+  ✘ Function "runScan" has cognitive complexity 64 (threshold: 15)
+    src/cli/commands/scan.ts:1091
+  ✘ Function "skipReturnType" has cognitive complexity 64 (threshold: 15)
+    src/codedna/function-extractor.ts:144
+  ✘ Function "renderMarkdown" has cognitive complexity 63 (threshold: 15)
+    scripts/build-handbook.mjs:214
+  ✘ Function "summarize" has cognitive complexity 61 (threshold: 15)
+    src/session/summary.ts:35
+  ✘ Function "compactPayload" has cognitive complexity 60 (threshold: 15)
+    src/ml-client/log-scan.ts:84
+  ✘ Function "detect" has cognitive complexity 57 (threshold: 15)
+    src/drift/semantic-duplication.ts:121
+  ✘ Function "collectGoRouterNames" has cognitive complexity 56 (threshold: 15)
+    src/drift/security-ast-go.ts:294
+  ✘ Function "renderFixPlan" has cognitive complexity 54 (threshold: 15)
+    src/output/terminal.ts:288
+  ✘ Function "toUploadEvent" has cognitive complexity 52 (threshold: 15)
+    src/session/upload-schema.ts:130
+  ✘ Function "buildFileMiddlewareIndex" has cognitive complexity 49 (threshold: 15)
+    src/drift/security-consistency.ts:166
+  ✘ Function "discoverFiles" has cognitive complexity 47 (threshold: 15)
+    src/core/discovery.ts:48
+  ✘ Function "extractNestedImports" has cognitive complexity 47 (threshold: 15)
+    src/core/import-graph-ast.ts:208
+  ✘ Function "balancedDecoratorArgs" has cognitive complexity 47 (threshold: 15)
+    src/drift/route-extractors/python.ts:35
+  ✘ Function "walk" has cognitive complexity 45 (threshold: 15)
+    src/core/discovery.ts:58
+  ✘ Function "buildDirectoryScopedVote" has cognitive complexity 45 (threshold: 15)
+    src/drift/utils.ts:578
+  ✘ Function "analyze" has cognitive complexity 44 (threshold: 15)
+    src/analyzers/implementation-gap.ts:142
+  ✘ Function "runWatchSession" has cognitive complexity 44 (threshold: 15)
+    src/cli/commands/watch-session.ts:120
+  ✘ Function "parseGoModSource" has cognitive complexity 44 (threshold: 15)
+    src/core/discovery.ts:162
+  ✘ Function "analyze" has cognitive complexity 43 (threshold: 15)
+    src/analyzers/security.ts:294
+  ✘ Function "renderToFormat" has cognitive complexity 43 (threshold: 15)
+    src/cli/commands/scan.ts:914
+  ✘ Function "collectPoisonedMethodsNames" has cognitive complexity 43 (threshold: 15)
+    src/drift/security-ast-python.ts:401
+  ✘ Function "poll" has cognitive complexity 42 (threshold: 15)
+    src/session/upload-follower.ts:58
+  ✘ Function "findUndocumentedExports" has cognitive complexity 40 (threshold: 15)
+    src/analyzers/intent-clarity.ts:385
+  ✘ Function "detect" has cognitive complexity 40 (threshold: 15)
+    src/drift/phantom-scaffolding.ts:96
+  ✘ 134 additional function(s) with cognitive complexity 16–40 (rolled up to reduce report volume)
+    src/output/tease.ts:62
+    src/analyzers/dependencies.ts:114
+    src/drift/security-ast-rust.ts:311
+    ... and 7 more
+  ⚠ Function "parseArgs" has cognitive complexity 15 (threshold: 10)
+    skills/vibedrift/scripts/vibedrift-tools.mjs:23
+  ⚠ Function "analyzePython" has cognitive complexity 15 (threshold: 10)
+    src/analyzers/language-specific.ts:165
+  ⚠ Function "jsonFetch" has cognitive complexity 15 (threshold: 10)
+    src/auth/api.ts:168
+  ⚠ Function "runEnable" has cognitive complexity 15 (threshold: 10)
+    src/cli/commands/enable.ts:74
+  ⚠ Function "classifyFile" has cognitive complexity 15 (threshold: 10)
+    src/codedna/pattern-classifier.ts:159
+  ⚠ Function "detect" has cognitive complexity 15 (threshold: 10)
+    src/drift/import-consistency.ts:54
+  ⚠ Function "gatherFiles" has cognitive complexity 15 (threshold: 10)
+    src/drift/pivot-detector.ts:42
+  ⚠ Function "scopeLane" has cognitive complexity 15 (threshold: 10)
+    src/drift/security-ast-go.ts:1298
+  ⚠ Function "scopeUnsureHook" has cognitive complexity 15 (threshold: 10)
+    src/drift/security-ast-go.ts:1320
+  ⚠ Function "emitRoute" has cognitive complexity 15 (threshold: 10)
+    src/drift/security-ast-rust.ts:947
+  ⚠ Function "buildGoHalf" has cognitive complexity 15 (threshold: 10)
+    src/drift/security-xfile-index.ts:181
+  ⚠ Function "analyze" has cognitive complexity 15 (threshold: 10)
+    src/drift/state-management-consistency.ts:63
+  ⚠ Function "csvScoreCategories" has cognitive complexity 15 (threshold: 10)
+    src/output/csv.ts:37
+  ⚠ Function "groupDeviation" has cognitive complexity 15 (threshold: 10)
+    src/scoring/engine.ts:479
+  ⚠ Function "deriveCorpusGenericNames" has cognitive complexity 14 (threshold: 10)
+    src/analyzers/intent-clarity.ts:142
+  ⚠ Function "detectLongFunctions" has cognitive complexity 14 (threshold: 10)
+    src/analyzers/intent-clarity.ts:300
+  ⚠ Function "runBilling" has cognitive complexity 14 (threshold: 10)
+    src/cli/commands/billing.ts:14
+  ⚠ Function "normalizeBody" has cognitive complexity 14 (threshold: 10)
+    src/codedna/semantic-fingerprint.ts:20
+  ⚠ Function "pruneCache" has cognitive complexity 14 (threshold: 10)
+    src/core/findings-cache.ts:119
+  ⚠ Function "analyzeAsync" has cognitive complexity 14 (threshold: 10)
+    src/drift/async-consistency.ts:31
+  ⚠ Function "detect" has cognitive complexity 14 (threshold: 10)
+    src/drift/comment-style-consistency.ts:70
+  ⚠ Function "pathStyleFromRegex" has cognitive complexity 14 (threshold: 10)
+    src/drift/import-style/python.ts:68
+  ⚠ Function "detect" has cognitive complexity 14 (threshold: 10)
+    src/drift/logging-consistency.ts:118
+  ⚠ Function "extractRouteRegistrations" has cognitive complexity 14 (threshold: 10)
+    src/drift/phantom-scaffolding.ts:47
+  ⚠ Function "detectPivot" has cognitive complexity 14 (threshold: 10)
+    src/drift/pivot-detector.ts:101
+  ⚠ Function "goCallCorroborated" has cognitive complexity 14 (threshold: 10)
+    src/drift/security-ast-go.ts:645
+  ⚠ Function "goCompositeIs401Error" has cognitive complexity 14 (threshold: 10)
+    src/drift/security-ast-go.ts:668
+  ⚠ Function "goCredentialBoundLocals" has cognitive complexity 14 (threshold: 10)
+    src/drift/security-ast-go.ts:704
+  ⚠ Function "httpExceptionStatus" has cognitive complexity 14 (threshold: 10)
+    src/drift/security-ast-python.ts:731
+  ⚠ Function "extractorTypeUnsure" has cognitive complexity 14 (threshold: 10)
+    src/drift/security-ast-rust.ts:884
+  ⚠ 61 additional function(s) with cognitive complexity 11–14 (rolled up to reduce report volume)
+    src/drift/security-ast-rust.ts:910
+    src/output/tease.ts:177
+    src/tools-core/tools/validate-change.ts:193
+    ... and 7 more
+  ℹ Function "collectWorkerRootBases" has cognitive complexity 10 (threshold: 6)
+    src/analyzers/dead-code.ts:64
+  ℹ Function "analyzePythonDeadCode" has cognitive complexity 10 (threshold: 6)
+    src/analyzers/dead-code.ts:225
+  ℹ Function "detectUnreachableCode" has cognitive complexity 10 (threshold: 6)
+    src/analyzers/dead-code.ts:259
+  ℹ Function "detectLowDocumentation" has cognitive complexity 10 (threshold: 6)
+    src/analyzers/intent-clarity.ts:418
+  ℹ Function "analyzeRust" has cognitive complexity 10 (threshold: 6)
+    src/analyzers/language-specific.ts:228
+  ℹ Function "bayesianStackFindings" has cognitive complexity 10 (threshold: 6)
+    src/analyzers/security.ts:378
+  ℹ Function "writeContextIfRequested" has cognitive complexity 10 (threshold: 6)
+    src/cli/commands/scan.ts:589
+  ℹ Function "runUpdate" has cognitive complexity 10 (threshold: 6)
+    src/cli/commands/update.ts:52
+  ℹ Function "(anonymous)" has cognitive complexity 10 (threshold: 6)
+    src/cli/index.ts:287
+  ℹ Function "scoreDeviations" has cognitive complexity 10 (threshold: 6)
+    src/codedna/deviation-heuristics.ts:195
+  ℹ Function "votesByDirectory" has cognitive complexity 10 (threshold: 6)
+    src/core/baseline.ts:191
+  ℹ Function "suggestExclusions" has cognitive complexity 10 (threshold: 6)
+    src/core/file-filter.ts:60
+  ℹ Function "extractDeclarationName" has cognitive complexity 10 (threshold: 6)
+    src/core/import-graph-ast.ts:160
+  ℹ Function "detectDIPattern" has cognitive complexity 10 (threshold: 6)
+    src/drift/architectural-contradiction.ts:155
+  ℹ Function "asyncCounts" has cognitive complexity 10 (threshold: 6)
+    src/drift/async-style.ts:22
+  ℹ Function "pythonNonCodeLines" has cognitive complexity 10 (threshold: 6)
+    src/drift/comment-markers.ts:35
+  ℹ Function "groupBoundaryEvidence" has cognitive complexity 10 (threshold: 6)
+    src/drift/import-style/shared.ts:53
+  ℹ Function "buildDirectoryGroups" has cognitive complexity 10 (threshold: 6)
+    src/drift/return-shape-consistency.ts:226
+  ℹ Function "extractGoRoutesRegex" has cognitive complexity 10 (threshold: 6)
+    src/drift/route-extractors/go.ts:27
+  ℹ Function "asApiViewDecorator" has cognitive complexity 10 (threshold: 6)
+    src/drift/security-ast-python.ts:571
+  ℹ 136 additional function(s) with cognitive complexity 7–10 (rolled up to reduce report volume)
+    src/drift/semantic-duplication.ts:49
+    src/drift/test-structure-consistency.ts:60
+    src/ml-client/upload-report.ts:20
+    ... and 7 more
+  ✘ 5 function(s) marked explicitly as not implemented (throw new Error('Not implemented'))
+    src/analyzers/implementation-gap.ts:30
+    src/analyzers/implementation-gap.ts:113
+    src/analyzers/implementation-gap.ts:114
+    test/unit/analyzers/implementation-gap.test.ts:67
+    test/unit/analyzers/implementation-gap.test.ts:72
+  ✘ 6 placeholder return(s) found in production code — functions that return hardcoded strings like "unvalidated" instead of computed values
+    src/analyzers/implementation-gap.ts:25
+    test/unit/analyzers/implementation-gap.test.ts:111
+    test/unit/analyzers/implementation-gap.test.ts:148
+    ... and 3 more
+
+── Coherence Audit (AI-Powered) ───────────────────
+  Coherence: B (76/100) — graded against this codebase's own patterns
+  The codebase is dominated by strong patterns (PascalCase naming, relative imports, named exports, console logging) but is significantly fractured by pervasive semantic duplication across multiple directories—particularly in src/drift/ (19 pairs), src/mcp/tools/ (3 pairs), and src/output/ (4 pairs)—and inconsistent error-handling strategies that contradict the team's declared AGENTS.md contract. These two issues alone undermine coherence despite otherwise consistent conventions.
+
+  1. [CRITICAL] Pervasive semantic duplication across src/drift/, src/mcp/tools/, src/output/, and src/analyzers/
+     breaks pattern: unique function bodies (0% consistency enforced)
+     at: src/drift/utils.ts (19 duplicate pairs), src/mcp/tools/get-dominant-pattern.ts (3 duplicate pairs), src/output/context-md.ts (4 duplicate pairs)
+     why: 39 total semantic duplicate pairs scatter logic across the codebase, making maintenance harder, increasing bug surface (fixes in one location won't reach duplic
+     → Extract duplicate function bodies into shared utilities: create src/drift/security-validators.ts with parametric versions of credential and naming validators; consolidate src/drift/utils.ts pairs into
+
+  2. [CRITICAL] Project-wide contradiction between declared error-handling contract (AGENTS.md: throws) and actual implementation (null/undefined sentinels dominate)
+     breaks pattern: throws on error (50% consistency: 2/4 files declare it, but 10+ directories default to null/undefined)
+     at: AGENTS.md (declares throws on error), src/core/baseline.ts (10/10 files use null/undefined), src/drift/ (16/18 files use null/undefined)
+     why: Callers cannot trust error handling strategy; some call sites expect exceptions and will crash silently on null, others expect null and will crash on thrown err
+     → Align all functions to a single pattern: either (a) enforce throws everywhere by updating src/core/, src/drift/, src/codedna/, src/ml-client/, src/output/, src/session/ to throw on error; OR (b) if nu
+
+  3. [HIGH] Three function names contradict their behavior (decoratorName, goMiddlewareName, receiverName)
+     breaks pattern: naming must reflect actual function logic (4–7% alignment for these three)
+     at: src/drift/security-ast-go.ts (goMiddlewareName, receiverName likely misnamed), decoratorName (likely in src/drift/security-ast-*.ts, exact file not provided)
+     why: Misleading names create maintenance hazards: developers calling these functions expect behavior based on the name, then hit unexpected logic. Refactoring is har
+     → Rename decoratorName, goMiddlewareName, and receiverName to match their actual behavior (e.g., if goMiddlewareName actually extracts middleware identity tokens, rename to goExtractMiddlewareIdentity).
+
+  4. [HIGH] Architectural inconsistency: dependency injection strategy differs across modules
+     breaks pattern: repository pattern (75% consistency: 3/4 files use it, but 5+ modules mix DI styles)
+     at: src/auth/api.ts (constructor injection), src/auth/ (3/4 files use no DI), src/cli/commands/feedback.ts (direct env var access)
+     why: Mixed DI strategies scatter configuration concerns: some modules are testable (src/auth/api.ts with constructor injection), others are brittle (src/cli/commands
+     → Standardize on one DI pattern: either (a) adopt constructor injection everywhere (preferred for testability) and update src/auth/ (3/4), src/cli/commands/ (feedback.ts), src/session/ (hook-entry.ts, e
+
+  5. [MEDIUM] Naming convention oscillation in scripts/build-handbook.mjs (72 non-PascalCase identifiers among 440 PascalCase)
+     breaks pattern: PascalCase (86% consistency project-wide, but scripts/build-handbook.mjs violates this)
+     at: scripts/build-handbook.mjs
+     why: Single-file deviation from PascalCase suggests the file was generated or auto-modified (likely 'different AI sessions' per the audit note), making it harder to 
+     → Audit scripts/build-handbook.mjs for AI-generated code and human review; rename all non-PascalCase types and exported symbols to match project convention. If this file is auto-generated, add a comment
+
+  6. [LOW] Single file using winston logger while 30 use console.*
+     breaks pattern: console.* logging (97% consistency, with src/drift/logging-consistency.ts as outlier)
+     at: src/drift/logging-consistency.ts (structured logger: winston)
+     why: Isolated outlier creates cognitive friction: developers expect console.log/error but encounter winston API in one module. Low severity because logging is not a 
+     → Either (a) remove winston and switch src/drift/logging-consistency.ts to console.* to match 30 other files, OR (b) if structured logging is desired, migrate all 30 console.* calls to winston across th
+
+  Already coherent:
+    ✓ Import and export style is perfectly consistent: 100% relative imports (./) and 100% named exports across 11 and 13 files respectively; this is a strong signal of discipline and makes refactoring and dependency tracking trivial.
+    ✓ File naming convention is coherent within each directory (kebab-case in scripts/, src/analyzers/, src/codedna/, src/core/); combined with PascalCase types in 86% of files, this creates a clear file/type boundary that aids discoverability.
+    ✓ Console logging is nearly universal (97% consistency across 30 files), providing a predictable debugging surface and avoiding the cognitive load of multiple logger APIs across the codebase—the one winston outlier is easily corrected.
+

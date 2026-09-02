@@ -438,3 +438,14 @@ body[data-context="invert"] {
 /* Stat row that isn't a hero moment. */
 .stat-row--compact .stat__value { font-size: var(--t-2); }
 .stat-row--compact { gap: clamp(1rem, 3vw, 2.5rem); }
+
+/* --- Embedded recording -------------------------------------------------- */
+.clip {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 56vh;
+  border-radius: var(--radius);
+  border: 1px solid var(--code-rule);
+  background: var(--code-bg);
+}
