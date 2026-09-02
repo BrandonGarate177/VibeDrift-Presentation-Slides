@@ -58,7 +58,7 @@ that's the honest answer, and it belongs on the bug tracker tomorrow.
 | 4:50 | 9 | The experiment, as designed. Intent only; next slide is what happened |
 | 5:35 | 10 | **What went wrong running it.** The retraction first; it's the most credible thing you own. The 71 is real |
 | 6:30 | 11 | #118 and #110. Both fail silently; that's the point |
-| 7:20 | 12 | **The ask.** Say it, then stop talking |
+| 7:20 | 12 | **The ask.** Distribution. Three doors, you don't know which. Ask the room which one they'd use, then stop talking |
 | — | 13 | **Where we could use help.** Leave up during Q&A and afterwards. These are real questions, not rhetorical |
 
 ## Lines that are yours to cut
