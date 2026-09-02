@@ -174,13 +174,13 @@
 <section class="slide" id="failures" data-title="What went wrong running it">
   <div class="slide__inner">
     <p class="kicker">What went wrong running it</p>
-    <h2 class="h2">Run one is void. Here's how.</h2>
+    <h2 class="h2">Most of the work was finding out our own measurements were lying to us.</h2>
     <ul class="points">
-      <li>The control group wasn't blind. The architecture doc every session reads named both tracks and the tool. We found it by accident, with grep, weeks in.</li>
-      <li>One finding was retracted outright. It was a bug in our measurement script, not a difference between the tracks.</li>
-      <li>Then the tool itself turned out to be silently dropping files from the codebases we were measuring. That's issue #110. That voided the run.</li>
+      <li>Our cleanest result, "control has a circular dependency and we don't," was a stale build folder on the measuring laptop. Real answer: zero, both tracks, all 37 sprints. Retracted.</li>
+      <li>Three separate ways the treatment arm silently became the control arm. Our own tool skipped every file with a 2,000-character line. One treatment sprint made zero tool calls out of 43. On one rail the instructions file never loaded at all.</li>
+      <li>Generation two is on its seventh attempt. None has completed. n is still one.</li>
     </ul>
-    <p class="note">We keep a numbered list of every known flaw in the harness itself. It's at 63. Run two is going as I stand here.</p>
+    <p class="note">Seventy-one numbered flaws in our own harness, dated and published. $55 spent so far, and nearly all of it was re-sending the conversation to the model.</p>
   </div>
 </section>
 
@@ -211,13 +211,14 @@
 
 
 <!-- Trailing slide. Leave up while people come talk to you. -->
-<section class="slide" id="more" data-title="Keep going">
+<section class="slide" id="more" data-title="Where we could use help">
   <div class="slide__inner">
-    <p class="kicker">Come argue with me about any of these</p>
+    <p class="kicker">Where we could actually use help</p>
     <ul class="points">
-      <li>What would make you leave it running after week one?</li>
-      <li>What's the first thing you'd stop trusting it about?</li>
-      <li>Would you run it on a private repo? Honestly?</li>
+      <li>Is there a general way to prove an agent <em>received</em> an instruction and <em>can reach</em> a tool, before you spend a session finding out?</li>
+      <li>Of eight models, three reliably called the tool when told to. Prompting problem, tool-description problem, or just how models are?</li>
+      <li>One sample is a multi-day run. Is there an honest design better than "two or three runs, report direction, claim nothing"?</li>
+      <li>What would a skeptic demand from an A/B test run by someone with a stake in the result?</li>
     </ul>
     <hr class="rule">
     <p class="note">

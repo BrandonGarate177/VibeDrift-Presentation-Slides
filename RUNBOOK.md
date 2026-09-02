@@ -58,25 +58,29 @@ account, hits a hosted API with a 90-second timeout, and fails silently.
 | 3:00 | 7 | **It's running.** Talk through the vote. Then scroll the terminal back and read the score |
 | 4:10 | 8 | **The deep scan, recorded.** Video plays on its own, 29s. Say it's real, spinner sped up. Point at the AGENTS.md finding when it lands |
 | 4:50 | 9 | The experiment, as designed. Intent only; next slide is what happened |
-| 5:35 | 10 | **What went wrong running it.** Three things, don't soften them. The 63 is real |
+| 5:35 | 10 | **What went wrong running it.** The retraction first; it's the most credible thing you own. The 71 is real |
 | 6:30 | 11 | #118 and #110. Both fail silently; that's the point |
 | 7:20 | 12 | **The ask.** Say it, then stop talking |
-| — | 13 | Leave up during Q&A and afterwards |
+| — | 13 | **Where we could use help.** Leave up during Q&A and afterwards. These are real questions, not rhetorical |
 
 ## Lines that are yours to cut
 
-These are true and they're what this event asked for. They come from a private
-repo. Delete the `<li>` in `index.html` if you'd rather not say one out loud.
-
-- Slide 10: the control-group-wasn't-blind line, the retraction, and the 63 numbered
-  harness flaws. All three come from the experiment repo's own findings docs
-  (`BLINDING-INTEGRITY-FINDINGS.md`, `FORMWORK-RUN-1-FINDINGS.md`, `GAPS.md`).
-  They're methodology, not numbers, and they're what this event asked for.
+Slide 10 and slide 13 are built from the experiment repo's handoff document
+(`GAPS.md`, `FORMWORK-RUN-1-FINDINGS.md`, `BLINDING-INTEGRITY-FINDINGS.md`).
+They're methodology and failures, not results. Delete any `<li>` you'd rather
+not say out loud.
 
 ## Things you'll get asked, and the honest answer
 
-**"Does it actually work?"** We don't know yet. Run one of the experiment is void.
-That's why the ask is what it is.
+**"Does it actually work?"** We don't know. Generation one's headline finding was
+retracted; the rest are n=1 and indistinguishable at that sample size. Generation
+two is on its seventh attempt with three clean sprints. That's why the ask is what
+it is.
+
+**"What did you actually find?"** That our measurements were wrong more often
+than the thing we were measuring. Five numbers corrected, one retracted, none of
+the bugs in either track's code. And three separate ways the treatment arm
+silently became the control arm.
 
 **"Is the #110 fix shipped?"** No. It's on a branch, no PR open yet.
 
