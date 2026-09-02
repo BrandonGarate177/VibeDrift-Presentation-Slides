@@ -444,7 +444,7 @@ body[data-context="invert"] {
   display: block;
   width: auto;
   max-width: 100%;
-  max-height: 56vh;
+  max-height: 50vh;
   border-radius: var(--radius);
   border: 1px solid var(--code-rule);
   background: var(--code-bg);

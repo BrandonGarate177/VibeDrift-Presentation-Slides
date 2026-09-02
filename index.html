@@ -23,7 +23,8 @@
 <section class="slide" id="title" data-title="Title">
   <div class="slide__inner">
     <p class="kicker">San Diego AI Showcase · 1 Sep 2026</p>
-    <h1 class="display">Why your coding agent<br>gets worse as the<br>project grows</h1>
+    <h1 class="display">Our coding agents get worse the bigger the project.</h1>
+    <h2 class="h2">#whatdatmean?</h2>
     <hr class="rule">
     <p class="note">Brandon Garate · VibeDrift · github.com/VibeDrift/VibeDrift</p>
   </div>
@@ -96,7 +97,7 @@
 <section class="slide" id="status" data-title="Where we're at">
   <div class="slide__inner">
     <p class="kicker">Where we're at</p>
-    <h2 class="h2">VibeDrift is a governance layer<br>for coding agents.</h2>
+    <h2 class="h2">VibeDrift. it catches the drift. if you feel my vibe.</h2>
     <p class="lede">It learns what your repo already does and holds the agent to it.</p>
     <ul class="points">
       <li>Fourteen detectors group files by directory, vote on what each group does, and flag what deviates. That part works and I'll show it in a second.</li>
@@ -109,27 +110,11 @@
 </section>
 
 
-<!-- 2:40 — The command, big enough to read and with a copy button. Say
-     what it is and why this repo before you hit enter. -->
-<section class="slide" id="run" data-title="What we're about to run">
+<!-- 2:40 — How the vote works. This is the low-level bit; take it slowly. -->
+<section class="slide" id="vote" data-title="How the vote works">
   <div class="slide__inner">
-    <p class="kicker">What we're about to run</p>
-    <h2 class="h2">The tool, scanning its own repo.</h2>
-    <pre class="code code--cmd"><code id="cmd"><span class="prompt">$ </span>vibedrift scan . --format terminal</code><button class="copy" type="button" data-copy="#cmd" aria-label="Copy command">copy</button></pre>
-    <ul class="points">
-      <li>Runs locally on 80,000 lines of TypeScript.</li>
-    </ul>
-  </div>
-</section>
-
-
-<!-- 3:00 — Hit enter. This slide stays up while it runs. Talk through the
-     vote. When it finishes, scroll the terminal back to the score block and
-     read it out. Then come back to the deck. -->
-<section class="slide" id="demo" data-title="Running">
-  <div class="slide__inner">
-    <p class="kicker">Running now · ~20 seconds</p>
-    <h2 class="h2">What it's doing<br>while we wait</h2>
+    <p class="kicker">How a scan decides what your convention is</p>
+    <h2 class="h2">It doesn't have a rulebook.<br>It takes a vote.</h2>
     <ul class="points">
       <li>Groups files by directory, because conventions are local.</li>
       <li>Votes on the dominant pattern in each group.</li>
@@ -141,14 +126,33 @@
 </section>
 
 
-<!-- 4:10 — The deep half, recorded an hour before the talk. Spinner is
+<!-- 3:20 — The scan, recorded an hour before the talk. Spinner is
      sped up 8x; everything else is real time. -->
 <section class="slide" id="deep" data-title="The deep scan">
   <div class="slide__inner">
     <p class="kicker">Recorded this afternoon · spinner sped up, nothing else</p>
-    <h2 class="h2">Same scan with the cloud layer on.</h2>
+    <h2 class="h2">The tool scanning its own repo,<br>cloud layer on.</h2>
     <video class="clip" src="demo/deep-scan-cut.mp4" poster="demo/deep-scan-poster.jpg" muted loop playsinline preload="metadata" data-autoplay></video>
-    <p class="note">Sends function bodies to a hosted model. 63 seconds. It found three near-duplicate helpers across the Go, Rust and Python security extractors, and the score didn't move.</p>
+    <p class="note">81,000 lines of TypeScript, 65 seconds, score 86. The top finding is us contradicting our own AGENTS.md. The cloud layer found three near-duplicate helpers across the Go, Rust and Python security extractors, and the score didn't move.</p>
+  </div>
+</section>
+
+
+<!-- 4:10 — The part the abstract promised. A real tool call from this
+     afternoon: the agent about to reinvent a helper the repo already has. -->
+<section class="slide" id="agent" data-title="The agent asks first">
+  <div class="slide__inner">
+    <p class="kicker">The part the abstract promised · real call, this afternoon</p>
+    <h2 class="h2">The agent asks before it writes.</h2>
+    <pre class="code"><code><span class="n">→ validate_change</span>
+    targetPath: src/core/utils.ts
+    body:       export function escapeForRegExp(input: string): string { … }
+
+<span class="n">← 50 ms</span>
+    ok:          <span class="bar-on">false</span>
+    duplicateOf: src/core/regex.ts · escapeRegex · line 6 · <span class="bar-on">96% similar</span>
+    confidence:  high</code></pre>
+    <p class="note">Same baseline the scan built, so a file created this session is invisible to it. And in our experiment, only three of eight models reliably called it when told to.</p>
   </div>
 </section>
 
@@ -158,7 +162,7 @@
 <section class="slide" id="experiment" data-title="The experiment">
   <div class="slide__inner">
     <p class="kicker">The experiment</p>
-    <h2 class="h2">Same spec, built twice.</h2>
+    <h2 class="h2">One with and one without</h2>
     <ul class="points">
       <li>Track V has the tool in the agent's loop. Track C doesn't, and isn't supposed to know it exists.</li>
       <li>Every sprint is a fresh session with no memory of the last one. That's the condition from slide 3, on purpose.</li>
@@ -174,7 +178,7 @@
 <section class="slide" id="failures" data-title="What went wrong running it">
   <div class="slide__inner">
     <p class="kicker">What went wrong running it</p>
-    <h2 class="h2">Most of the work was finding out our own measurements were lying to us.</h2>
+    <h2 class="h2">I'm a noob at A/B testing</h2>
     <ul class="points">
       <li>Our cleanest result, "control has a circular dependency and we don't," was a stale build folder on the measuring laptop. Real answer: zero, both tracks, all 37 sprints. Retracted.</li>
       <li>Three separate ways the treatment arm silently became the control arm. Our own tool skipped every file with a 2,000-character line. One treatment sprint made zero tool calls out of 43. On one rail the instructions file never loaded at all.</li>

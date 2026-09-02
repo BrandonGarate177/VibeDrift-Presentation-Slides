@@ -12,28 +12,26 @@ of content, not 10. The squeeze lands on whoever isn't first.
 
 ## The demo
 
-Slide 6 has the command with a copy button. In the `VibeDrift/` checkout:
+Nothing is live. Two recordings, both real, both from this afternoon:
 
-```bash
-vibedrift scan . --format terminal
-```
+- **Slide 7**, the deep scan. Plays on its own when you land on the slide, 29s,
+  loops. The 65-second wait is sped up 8x; everything else is real time.
+  Transcript: `demo/deep-scan-output.txt`. Tape: `demo/deep-scan.tape`.
+- **Slide 8**, the agent asking first. A real `validate_change` call over MCP:
+  the agent about to write `escapeForRegExp`, the tool answering in 50ms that
+  `escapeRegex` already exists at `src/core/regex.ts:6`, 96% similar. Request
+  and response are in `demo/validate-change-*.json`.
 
-About 20 seconds. Advance to slide 7 while it runs and talk through the vote.
-It prints **583 lines**, so when it finishes, **scroll the terminal back up to
-the score block** and read it out. Point at `N/A` on security and say why.
-Point at the top fix-plan item and say whose AGENTS.md it's contradicting.
+If someone asks why nothing's live: the deep scan hits a hosted API with a
+90-second timeout and fails silently; the agent session is nondeterministic.
+Both are true and neither is embarrassing.
 
-If the scan fails or the laptop misbehaves, the same output is in the repo:
-
-```bash
-cat demo/scan-output.txt | head -45
-```
-
-The deep scan is on slide 8 as a recording, not live. It was recorded this
-afternoon on the same repo (`demo/deep-scan.tape`, transcript in
-`demo/deep-scan-output.txt`). The 63-second wait is sped up 8x in the cut;
-everything else is real time. If someone asks why it isn't live: it needs an
-account, hits a hosted API with a 90-second timeout, and fails silently.
+**One thing to know and not say unprompted:** I also gave `validate_change` a
+function that broke four of the repo's declared conventions (default export,
+snake_case, `.then()` chain, return-null-on-error). It came back `ok: true,
+confidence: high`. Duplicate detection works; convention checking through that
+tool apparently doesn't, or not for that directory. If it comes up in Q&A,
+that's the honest answer, and it belongs on the bug tracker tomorrow.
 
 ## Keys
 
@@ -54,9 +52,9 @@ account, hits a hosted API with a 90-second timeout, and fails silently.
 | 0:55 | 3 | Why it compounds. Nothing carries over; the slice is task-shaped; forks breed forks |
 | 1:30 | 4 | "Everything compiles, everything passes review." Name it, don't explain it |
 | 1:55 | 5 | **Where we're at.** Introduce it by name. Say the numbers out loud: ~45 use it, one pays |
-| 2:40 | 6 | The command. Say what it is and why this repo. Then hit enter |
-| 3:00 | 7 | **It's running.** Talk through the vote. Then scroll the terminal back and read the score |
-| 4:10 | 8 | **The deep scan, recorded.** Video plays on its own, 29s. Say it's real, spinner sped up. Point at the AGENTS.md finding when it lands |
+| 2:40 | 6 | How the vote works. The low-level bit; take it slowly |
+| 3:20 | 7 | **The scan, recorded.** Plays on its own. Point at the AGENTS.md finding when it lands |
+| 4:10 | 8 | **The agent asks first.** Read the response out loud: false, escapeRegex, line 6, 96% |
 | 4:50 | 9 | The experiment, as designed. Intent only; next slide is what happened |
 | 5:35 | 10 | **What went wrong running it.** The retraction first; it's the most credible thing you own. The 71 is real |
 | 6:30 | 11 | #118 and #110. Both fail silently; that's the point |

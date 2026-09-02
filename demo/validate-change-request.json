@@ -1,0 +1,8 @@
+{
+  "name": "validate_change",
+  "arguments": {
+    "rootDir": "/Users/brandongarate/Documents/programming_projects/VibeDrift-ORG/VibeDrift",
+    "targetPath": "src/core/config.ts",
+    "body": "export default function load_config(path) {\n  return readFile(path, \"utf8\")\n    .then((txt) => JSON.parse(txt))\n    .catch(() => null);\n}"
+  }
+}
